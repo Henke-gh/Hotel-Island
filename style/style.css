@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  background-color: darkgrey;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.displayRooms {
+  background-color: grey;
+}
+
+.room {
+  background-color: lightgrey;
+}
