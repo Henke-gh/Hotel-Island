@@ -14,17 +14,17 @@ require_once __DIR__ . "/nav/header.html";
             <div class="room">
                 <h3>Budget Room</h3>
                 <p>Available</p>
-                <input type="checkbox" value="budget">
+                <input type="radio" name="selectedRoom" value="budget">
             </div>
             <div class="room">
                 <h3>Standard Room</h3>
                 <p>Available</p>
-                <input type="checkbox" value="standard">
+                <input type="radio" name="selectedRoom" value="standard">
             </div>
             <div class="room">
                 <h3>Luxury Room</h3>
                 <p>Available</p>
-                <input type="checkbox" value="luxury">
+                <input type="radio" name="selectedRoom" value="luxury">
             </div>
         </div>
         <button type="submit" name="bookRoom">Book Selected</button>
