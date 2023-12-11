@@ -10,8 +10,9 @@ require_once __DIR__ . "/nav/header.html";
     <?php endif;
     unset($_SESSION['error']); ?>
     <form method="post" action="/functions/resolveBooking.php">
-        <div class="calendar">
-            <table class="calendar">
+        <div class="calendarView">
+            <h3>January 2024</h3>
+            <table>
                 <thead>
                     <tr>
                         <th>Mon</th>
@@ -23,34 +24,27 @@ require_once __DIR__ . "/nav/header.html";
                         <th>Sun</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <?php
-                    $year = 2024;
-                    $month = 1;
-                    $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-                    $firstDayOfMonth = date('N', strtotime("$year-$month-01"));
-                    $currentDay = 1;
-                    for ($i = 0; $i < 6; $i++) : ?>
-                        <tr>
-                            <?php for ($d = 1; $d <= 7; $d++) : ?>
-                                <td class="day" id="day">
-                                    <?php
-                                    if ($i === 0 && $d < $firstDayOfMonth) :
-                                        echo "";
-                                    else :
-                                        echo $currentDay <= $daysInMonth ? $currentDay++ : ""; ?>
-                                        <input type="hidden" value="<?= $currentDay ?>" name="selectedDays[]">
-                                    <?php endif;
-                                    ?>
-                                </td>
-                            <?php endfor; ?>
-                        </tr>
-                    <?php endfor; ?>
-                </tbody>
+                <form method="post" action="/functions/resolveBooking.php">
+                    <tbody>
+                        <?php
+                        $d = 1; // Initialize the day-counter
+                        while ($d <= 31) : ?>
+                            <tr>
+                                <?php for ($w = 0; $w < 7; $w++) : ?>
+
+                                    <td>
+                                        <input type="checkbox" name="selectedDays[]" value="<?= ($d <= 31) ? $d : ''; ?>">
+                                        class="calendar-day" data-day="<?= ($d <= 31) ? $d : ''; ?>">
+                                        <?= ($d <= 31) ? $d : ''; ?>
+                                    </td>
+                                    <?php $d++; ?>
+                                <?php endfor; ?>
+                            </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </form>
             </table>
-
         </div>
-
         <div class="displayRooms">
             <div class="room">
                 <h3>Budget Room</h3>
