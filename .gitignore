@@ -3,3 +3,5 @@ vendor
 .env
 to-do.txt
 .vscdoe
+hotel.sqlite
+
