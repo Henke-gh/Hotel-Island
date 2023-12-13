@@ -9,24 +9,16 @@ if (isset($_POST['roomSelection'])) {
 
     try {
         $db = connect();
-        $query = "SELECT id FROM rooms WHERE roomName = '$room'";
+        $query = "SELECT * FROM rooms WHERE roomName = '$room'";
 
         $statement = $db->query($query);
 
-        $roomID = $statement->fetch();
-
-        $query = "SELECT * FROM rooms";
-
-        // Execute the query
-        $statement = $db->query($query);
-
-        // Fetch all rows as an associative array
-        $rooms = $statement->fetchAll();
+        $selectedRoom = $statement->fetch();
+        $_SESSION['selectedRoom'] = $selectedRoom;
     } catch (PDOException $e) {
         echo "Error fetching room data.";
         throw $e;
     }
-    $_SESSION['roomID'] = $rooms['id'];
 }
 
 ?>
@@ -70,9 +62,9 @@ if (isset($_POST['roomSelection'])) {
             </tbody>
         </table>
         <form method="post" action="/../functions/resolveBooking.php">
-            <input type="date" name="checkIn" min="2024-01-01" max="2024-01-31" required>
-            <input type="date" name="checkOut" min="2024-01-01" max="2024-01-31" required>
-            <button type="submit" name="searchAvailable">search</button>
+            <input type="date" name="checkIn" min="2024-01-01" max="2024-01-31" required placeholder="2024-01-01">
+            <input type="date" name="checkOut" min="2024-01-01" max="2024-01-31" required placeholder="2024-01-01">
+            <button type="submit" name="searchAvailable">Search</button>
         </form>
         <?php if (isset($_SESSION['dateReservation'])) : ?>
             <h4>Your dates: <?= $_SESSION['dateReservation']; ?></h4>
@@ -80,29 +72,16 @@ if (isset($_POST['roomSelection'])) {
     </div>
     <form method="post" action="/../functions/resolveBooking.php">
         <div class="displayRooms">
+            <h2>Your Room</h2>
             <div class="room">
-                <h3>Budget Room</h3>
-                <p>Cost: <?= $rooms[0]['cost']; ?>$</p>
+                <h3><?= $_SESSION['selectedRoom']['roomName']; ?> Room</h3>
+                <p>Cost: <?= $_SESSION['selectedRoom']['cost']; ?>$</p>
                 <p>Available</p>
-                <input type="radio" name="selectedRoom" value="budget">
-            </div>
-            <div class="room">
-                <h3>Standard Room</h3>
-                <p>Cost: <?= $rooms[1]['cost']; ?>$</p>
-                <p>Available</p>
-                <input type="radio" name="selectedRoom" value="standard">
-            </div>
-            <div class="room">
-                <h3>Luxury Room</h3>
-                <p>Cost: <?= $rooms[2]['cost']; ?>$</p>
-                <p>Available</p>
-                <input type="radio" name="selectedRoom" value="luxury">
+                <input type="hidden" name="selectedRoom" value="<?= $_SESSION['selectedRoom']['id']; ?>">
             </div>
         </div>
-        <label id="guestFirstName">Enter First Name:</label>
-        <input type="text" name="guestFirstName" required>
-        <label id="guestLastName">Enter Last Name:</label>
-        <input type="text" name="guestFLastName" required>
+        <label id="guestName">Enter Name:</label>
+        <input type="text" name="guestName" required>
         <button type="submit" name="bookRoom">Book Selected</button>
     </form>
 </main>
