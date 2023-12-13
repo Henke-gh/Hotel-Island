@@ -3,19 +3,30 @@ require_once __DIR__ . "/../functions/sessionStart.php";
 require_once __DIR__ . "/../functions/hotelFunctions.php";
 require_once __DIR__ . "/../nav/header.html";
 
-try {
-    $db = new PDO('sqlite:../hotel.sqlite');
+if (isset($_POST['roomSelection'])) {
+    $_SESSION['room'] = ucfirst($_POST['selectedRoom']);
+    $room = $_SESSION['room'];
 
-    $query = "SELECT * FROM rooms";
+    try {
+        $db = connect();
+        $query = "SELECT id FROM rooms WHERE roomName = '$room'";
 
-    // Execute the query
-    $statement = $db->query($query);
+        $statement = $db->query($query);
 
-    // Fetch all rows as an associative array
-    $rooms = $statement->fetchAll();
-} catch (PDOException $e) {
-    echo "Erro fetching room data.";
-    throw $e;
+        $roomID = $statement->fetch();
+
+        $query = "SELECT * FROM rooms";
+
+        // Execute the query
+        $statement = $db->query($query);
+
+        // Fetch all rows as an associative array
+        $rooms = $statement->fetchAll();
+    } catch (PDOException $e) {
+        echo "Error fetching room data.";
+        throw $e;
+    }
+    $_SESSION['roomID'] = $rooms['id'];
 }
 
 ?>
@@ -58,11 +69,14 @@ try {
                 <?php endwhile; ?>
             </tbody>
         </table>
-        <form method="post" action="">
-            <input type="date" name="checkIn" min="2024-01-01" max="2024-01-31">
-            <input type="date" name="checkOut" min="2024-01-01" max="2024-01-31">
+        <form method="post" action="/../functions/resolveBooking.php">
+            <input type="date" name="checkIn" min="2024-01-01" max="2024-01-31" required>
+            <input type="date" name="checkOut" min="2024-01-01" max="2024-01-31" required>
             <button type="submit" name="searchAvailable">search</button>
         </form>
+        <?php if (isset($_SESSION['dateReservation'])) : ?>
+            <h4>Your dates: <?= $_SESSION['dateReservation']; ?></h4>
+        <?php endif; ?>
     </div>
     <form method="post" action="/../functions/resolveBooking.php">
         <div class="displayRooms">

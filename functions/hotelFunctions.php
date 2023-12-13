@@ -12,14 +12,14 @@ one function to create a guid,
 and one function to control if a guid is valid.
 */
 
-/* function connect(string $dbName): object
+function connect(): object
 {
-    $dbPath = __DIR__ . '/..' . $dbName;
-    $db = "sqlite:$dbPath";
+    /* $dbPath = __DIR__ . '../' . $dbName;
+    $db = "sqlite:$dbPath"; */
 
     // Open the database file and catch the exception if it fails.
     try {
-        $db = new PDO($db);
+        $db = new PDO('sqlite:../hotel.sqlite');
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
@@ -27,7 +27,7 @@ and one function to control if a guid is valid.
         throw $e;
     }
     return $db;
-} */
+}
 
 function getRooms(PDO $db): array
 {
