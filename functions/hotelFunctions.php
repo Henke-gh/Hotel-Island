@@ -1,6 +1,5 @@
 <?php
 
-declare(strict_types=1);
 /*
 Here's something to start your career as a hotel manager.
 
@@ -12,14 +11,16 @@ one function to create a guid,
 and one function to control if a guid is valid.
 */
 
-function connect(): object
+use GuzzleHttp\RetryMiddleware;
+
+function connect(string $dbName): object
 {
-    /* $dbPath = __DIR__ . '../' . $dbName;
-    $db = "sqlite:$dbPath"; */
+    $dbPath = __DIR__ . '/../' . 'hotel.sqlite';
+    $db = "sqlite:$dbPath";
 
     // Open the database file and catch the exception if it fails.
     try {
-        $db = new PDO('sqlite:../hotel.sqlite');
+        $db = new PDO($db);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
@@ -29,16 +30,89 @@ function connect(): object
     return $db;
 }
 
-function getRooms(PDO $db): array
+//Select all from table rooms in hotel.sqlite db.
+function selectAllRooms()
 {
+    global $db;
     try {
-        $query = "SELECT * from rooms";
-        $statement = $db->query($query);
-        $result = $statement->fetchAll();
 
-        return $result;
+        $query = "SELECT * FROM rooms";
+
+        // Execute the query
+        $statement = $db->query($query);
+
+        // Fetch all rows as an associative array
+        $rooms = $statement->fetchAll();
     } catch (PDOException $e) {
-        echo "Erro fetching room data.";
+        echo "Error fetching room data.";
+        throw $e;
+    }
+    return $rooms;
+}
+
+function getSpecificRoom($room)
+{
+    global $db;
+    try {
+        $query = "SELECT * FROM rooms WHERE roomName = '$room'";
+
+        $statement = $db->query($query);
+
+        $selectedRoom = $statement->fetch();
+        $_SESSION['selectedRoom'] = $selectedRoom;
+    } catch (PDOException $e) {
+        echo "Error fetching room data.";
+        throw $e;
+    }
+}
+
+//Checks room availability in hotel.sqlite
+function checkRoomAvailability()
+{
+    global $db;
+    try {
+
+        $arrivalDate = $_SESSION['checkIn'];
+        $departureDate = $_SESSION['checkOut'];
+
+        $query = "SELECT roomID FROM guests
+          WHERE  arrival BETWEEN :arrival AND :departure
+               OR departure BETWEEN :arrival AND :departure";
+
+        $statement = $db->prepare($query);
+        $statement->bindParam(':arrival', $arrivalDate);
+        $statement->bindParam(':departure', $departureDate);
+        $statement->execute();
+
+        $bookings = $statement->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Error fetching room data.";
+        throw $e;
+    }
+    return $bookings;
+}
+
+function insertBookingInformation()
+{
+    global $room, $guestName, $extras, $db, $roomID;
+    try {
+        $query = "SELECT id FROM rooms WHERE roomName = '$room'";
+
+        $statement = $db->query($query);
+
+        $roomID = $statement->fetch();
+
+        $prepare = $db->prepare("INSERT into guests (roomID, guestName, arrival, departure, extras)
+        VALUES (:roomID, :arrival, :departure, :extras)");
+
+        $prepare->bindParam(':roomID', $_SESSION['selectedRoom']['id']);
+        $prepare->bindParam(':guestName', $guestName);
+        $prepare->bindParam(':arrival', $_SESSION['checkIn']);
+        $prepare->bindParam(':departure', $_SESSION['checkOut']);
+        $prepare->bindParam(':extras', $extras);
+        $prepare->execute();
+    } catch (PDOException $e) {
+        echo "Error fetching data.";
         throw $e;
     }
 }

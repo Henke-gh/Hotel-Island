@@ -2,23 +2,35 @@
 require_once __DIR__ . "/../functions/sessionStart.php";
 require_once __DIR__ . "/../functions/hotelFunctions.php";
 require_once __DIR__ . "/../nav/header.html";
+$db = connect('hotel.sqlite');
 
+
+//checks whether selected dates (from index.php) are available for booking.
+if (isset($_POST['searchAvailable'])) {
+    $_SESSION['checkIn'] = $_POST['checkIn'];
+    $_SESSION['checkOut'] = $_POST['checkOut'];
+
+    $bookings = checkRoomAvailability();
+
+    if (empty($bookings)) {
+        $_SESSION['dateReservation'] = $_SESSION['checkIn'] . " - " . $_SESSION['checkOut'];
+        header('Location: /../app/booking.php');
+        exit();
+    } else {
+        $_SESSION['error'] = "Sorry, dates not available.";
+        unset($_SESSION['checkIn']);
+        unset($_SESSION['checkOut']);
+        header('Location: /../app/booking.php');
+        exit();
+    }
+}
+
+//does maybe fuck all? 14/12-23
 if (isset($_POST['roomSelection'])) {
     $_SESSION['room'] = ucfirst($_POST['selectedRoom']);
     $room = $_SESSION['room'];
 
-    try {
-        $db = connect();
-        $query = "SELECT * FROM rooms WHERE roomName = '$room'";
-
-        $statement = $db->query($query);
-
-        $selectedRoom = $statement->fetch();
-        $_SESSION['selectedRoom'] = $selectedRoom;
-    } catch (PDOException $e) {
-        echo "Error fetching room data.";
-        throw $e;
-    }
+    getSpecificRoom($room);
 }
 
 ?>
@@ -29,6 +41,9 @@ if (isset($_POST['roomSelection'])) {
         <p><?= $_SESSION['error']; ?></p>
     <?php endif;
     unset($_SESSION['error']); ?>
+    <?php if (isset($_SESSION['dateReservation'])) : ?>
+        <h3>Your dates: <?= $_SESSION['dateReservation']; ?></h3>
+    <?php endif; ?>
     <div class="calendarView">
         <h3>January 2024</h3>
         <table>
@@ -66,9 +81,6 @@ if (isset($_POST['roomSelection'])) {
             <input type="date" name="checkOut" min="2024-01-01" max="2024-01-31" required placeholder="2024-01-01">
             <button type="submit" name="searchAvailable">Search</button>
         </form>
-        <?php if (isset($_SESSION['dateReservation'])) : ?>
-            <h4>Your dates: <?= $_SESSION['dateReservation']; ?></h4>
-        <?php endif; ?>
     </div>
     <form method="post" action="/../functions/resolveBooking.php">
         <div class="displayRooms">
