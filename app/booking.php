@@ -11,9 +11,15 @@ if (isset($_POST['searchAvailable'])) {
     $_SESSION['checkOut'] = $_POST['checkOut'];
     $_SESSION['dateReservation'] = "Your dates: " . $_SESSION['checkIn'] . " - " . $_SESSION['checkOut'];
 
+    //string to DateTime conversion to get number of days booked, used to calculate total price.
+    $arrivalDate = new DateTime($_SESSION['checkIn']);
+    $departureDate = new DateTime($_SESSION['checkOut']);
+    $interval = $arrivalDate->diff($departureDate);
+    $numberOfDays = $interval->days;
+
     $rooms = selectAllRooms();
     $availableRooms = [];
-
+    //checks which specific rooms are available, if any and puts them in the availableRooms array.
     foreach ($rooms as $room) {
         $bookings = checkRoomAvailability($room['id']);
 
@@ -21,25 +27,6 @@ if (isset($_POST['searchAvailable'])) {
             $availableRooms[] = $room;
         }
     }
-    //header('Location: /../app/booking.php');
-    //exit();
-
-    /* if (empty($bookings)) {
-    } else {
-        $_SESSION['error'] = "Sorry, no rooms available on selected dates.";
-        unset($_SESSION['checkIn']);
-        unset($_SESSION['checkOut']);
-        header('Location: /../app/booking.php');
-        exit();
-    } */
-}
-
-//does maybe fuck all? 14/12-23
-if (isset($_POST['roomSelection'])) {
-    $_SESSION['room'] = ucfirst($_POST['selectedRoom']);
-    $room = $_SESSION['room'];
-
-    getSpecificRoom($room);
 }
 
 ?>
@@ -54,7 +41,7 @@ if (isset($_POST['roomSelection'])) {
         <h3><?= $_SESSION['dateReservation']; ?></h3>
     <?php endif; ?>
     <div class="calendarView">
-        <h3>January 2024</h3>
+        <!-- <h3>January 2024</h3> -->
         <!-- <table>
             <thead>
                 <tr>
@@ -95,12 +82,15 @@ if (isset($_POST['roomSelection'])) {
         <form method="post" action="/../functions/resolveBooking.php">
             <div class="displayRooms">
                 <h2>Available Rooms</h2>
-                <?php foreach ($availableRooms as $room) : ?>
+                <?php foreach ($availableRooms as $room) :
+                    $totalCost = $numberOfDays * $room['cost']; ?>
                     <div class="room">
                         <h3><?= $room['roomName']; ?> Room</h3>
-                        <p>Cost: <?= $room['cost']; ?>$</p>
+                        <p>Price per day: <?= $room['cost']; ?>$</p>
+                        <p>Total cost: <?= $totalCost; ?>$</p>
                         <p>Available</p>
-                        <input type="hidden" name="selectedRoom" value="<?= $room['id']; ?>">
+                        <input type="hidden" name="roomTotalCost" value="<?= $totalCost; ?>">
+                        <input type="hidden" name="selectedRoom" value="<?= $room['roomName']; ?>">
                     </div>
                 <?php endforeach; ?>
             </div>

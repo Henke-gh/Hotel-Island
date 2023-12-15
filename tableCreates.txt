@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS guests (
     arrival DATE,
     departure DATE,
     extras TEXT,
+    cost INTEGER,
     FOREIGN KEY (roomID) REFERENCES rooms (id)
 );
 

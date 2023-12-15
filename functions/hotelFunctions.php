@@ -96,7 +96,7 @@ function checkRoomAvailability($roomID)
 
 function insertBookingInformation()
 {
-    global $room, $guestName, $extras, $db, $roomID;
+    global $room, $guestName, $extras, $db, $roomID, $totalCost;
     try {
         $query = "SELECT id FROM rooms WHERE roomName = '$room'";
 
@@ -104,14 +104,15 @@ function insertBookingInformation()
 
         $roomID = $statement->fetch();
 
-        $prepare = $db->prepare("INSERT into guests (roomID, guestName, arrival, departure, extras)
-        VALUES (:roomID, :arrival, :departure, :extras)");
+        $prepare = $db->prepare("INSERT into guests (roomID, guestName, arrival, departure, extras, cost)
+        VALUES (:roomID, :arrival, :departure, :extras, :cost)");
 
         $prepare->bindParam(':roomID', $_SESSION['selectedRoom']['id']);
         $prepare->bindParam(':guestName', $guestName);
         $prepare->bindParam(':arrival', $_SESSION['checkIn']);
         $prepare->bindParam(':departure', $_SESSION['checkOut']);
         $prepare->bindParam(':extras', $extras);
+        $prepare->bindParam(':cost', $totalCost);
         $prepare->execute();
     } catch (PDOException $e) {
         echo "Error fetching data.";

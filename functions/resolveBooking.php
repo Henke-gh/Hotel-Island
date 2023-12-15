@@ -10,6 +10,7 @@ $db = connect('hotel.sqlite');
 if (isset($_POST['bookRoom'])) {
     $room = ucfirst($_POST['selectedRoom']);
     $guestName = trim(htmlspecialchars($_POST['guestName'], ENT_QUOTES));
+    $totalCost = $_POST['roomTotalCost'];
     $extras = "none";
 
     insertBookingInformation();
