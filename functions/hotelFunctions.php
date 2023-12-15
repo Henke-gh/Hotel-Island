@@ -67,7 +67,7 @@ function getSpecificRoom($room)
 }
 
 //Checks room availability in hotel.sqlite
-function checkRoomAvailability()
+function checkRoomAvailability($roomID)
 {
     global $db;
     try {
@@ -75,11 +75,13 @@ function checkRoomAvailability()
         $arrivalDate = $_SESSION['checkIn'];
         $departureDate = $_SESSION['checkOut'];
 
-        $query = "SELECT roomID FROM guests
-          WHERE  arrival BETWEEN :arrival AND :departure
-               OR departure BETWEEN :arrival AND :departure";
+        $query = "SELECT * FROM guests
+        WHERE roomID = :roomID
+        AND (arrival BETWEEN :arrival AND :departure
+             OR departure BETWEEN :arrival AND :departure)";
 
         $statement = $db->prepare($query);
+        $statement->bindParam(':roomID', $roomID);
         $statement->bindParam(':arrival', $arrivalDate);
         $statement->bindParam(':departure', $departureDate);
         $statement->execute();

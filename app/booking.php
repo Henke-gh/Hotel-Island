@@ -9,20 +9,29 @@ $db = connect('hotel.sqlite');
 if (isset($_POST['searchAvailable'])) {
     $_SESSION['checkIn'] = $_POST['checkIn'];
     $_SESSION['checkOut'] = $_POST['checkOut'];
+    $_SESSION['dateReservation'] = "Your dates: " . $_SESSION['checkIn'] . " - " . $_SESSION['checkOut'];
 
-    $bookings = checkRoomAvailability();
+    $rooms = selectAllRooms();
+    $availableRooms = [];
 
-    if (empty($bookings)) {
-        $_SESSION['dateReservation'] = $_SESSION['checkIn'] . " - " . $_SESSION['checkOut'];
-        header('Location: /../app/booking.php');
-        exit();
+    foreach ($rooms as $room) {
+        $bookings = checkRoomAvailability($room['id']);
+
+        if (empty($bookings)) {
+            $availableRooms[] = $room;
+        }
+    }
+    //header('Location: /../app/booking.php');
+    //exit();
+
+    /* if (empty($bookings)) {
     } else {
-        $_SESSION['error'] = "Sorry, dates not available.";
+        $_SESSION['error'] = "Sorry, no rooms available on selected dates.";
         unset($_SESSION['checkIn']);
         unset($_SESSION['checkOut']);
         header('Location: /../app/booking.php');
         exit();
-    }
+    } */
 }
 
 //does maybe fuck all? 14/12-23
@@ -42,11 +51,11 @@ if (isset($_POST['roomSelection'])) {
     <?php endif;
     unset($_SESSION['error']); ?>
     <?php if (isset($_SESSION['dateReservation'])) : ?>
-        <h3>Your dates: <?= $_SESSION['dateReservation']; ?></h3>
+        <h3><?= $_SESSION['dateReservation']; ?></h3>
     <?php endif; ?>
     <div class="calendarView">
         <h3>January 2024</h3>
-        <table>
+        <!-- <table>
             <thead>
                 <tr>
                     <th>Mon</th>
@@ -75,27 +84,33 @@ if (isset($_POST['roomSelection'])) {
                     </tr>
                 <?php endwhile; ?>
             </tbody>
-        </table>
-        <form method="post" action="/../functions/resolveBooking.php">
+        </table> -->
+        <!-- <form method="post" action="">
             <input type="date" name="checkIn" min="2024-01-01" max="2024-01-31" required placeholder="2024-01-01">
             <input type="date" name="checkOut" min="2024-01-01" max="2024-01-31" required placeholder="2024-01-01">
             <button type="submit" name="searchAvailable">Search</button>
-        </form>
+        </form> -->
     </div>
-    <form method="post" action="/../functions/resolveBooking.php">
-        <div class="displayRooms">
-            <h2>Your Room</h2>
-            <div class="room">
-                <h3><?= $_SESSION['selectedRoom']['roomName']; ?> Room</h3>
-                <p>Cost: <?= $_SESSION['selectedRoom']['cost']; ?>$</p>
-                <p>Available</p>
-                <input type="hidden" name="selectedRoom" value="<?= $_SESSION['selectedRoom']['id']; ?>">
+    <?php if (!empty($availableRooms)) : ?>
+        <form method="post" action="/../functions/resolveBooking.php">
+            <div class="displayRooms">
+                <h2>Available Rooms</h2>
+                <?php foreach ($availableRooms as $room) : ?>
+                    <div class="room">
+                        <h3><?= $room['roomName']; ?> Room</h3>
+                        <p>Cost: <?= $room['cost']; ?>$</p>
+                        <p>Available</p>
+                        <input type="hidden" name="selectedRoom" value="<?= $room['id']; ?>">
+                    </div>
+                <?php endforeach; ?>
             </div>
-        </div>
-        <label id="guestName">Enter Name:</label>
-        <input type="text" name="guestName" required>
-        <button type="submit" name="bookRoom">Book Selected</button>
-    </form>
+            <label id="guestName">Enter Name:</label>
+            <input type="text" name="guestName" required>
+            <button type="submit" name="bookRoom">Book Selected</button>
+        </form>
+    <?php else : ?>
+        <h3>Sorry, no rooms available for your dates.</h3>
+    <?php endif; ?>
 </main>
 
 <?php require_once __DIR__ . "/../nav/footer.html";
