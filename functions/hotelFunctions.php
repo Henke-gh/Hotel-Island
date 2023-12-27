@@ -96,18 +96,12 @@ function checkRoomAvailability($roomID)
 
 function insertBookingInformation()
 {
-    global $room, $guestName, $extras, $db, $roomID, $totalCost;
+    global $guestName, $extras, $db, $selectedRoomID, $totalCost;
     try {
-        $query = "SELECT id FROM rooms WHERE roomName = '$room'";
-
-        $statement = $db->query($query);
-
-        $roomID = $statement->fetch();
-
         $prepare = $db->prepare("INSERT into guests (roomID, guestName, arrival, departure, extras, cost)
-        VALUES (:roomID, :arrival, :departure, :extras, :cost)");
+        VALUES (:roomID, :guestName, :arrival, :departure, :extras, :cost)");
 
-        $prepare->bindParam(':roomID', $_SESSION['selectedRoom']['id']);
+        $prepare->bindParam(':roomID', $selectedRoomID);
         $prepare->bindParam(':guestName', $guestName);
         $prepare->bindParam(':arrival', $_SESSION['checkIn']);
         $prepare->bindParam(':departure', $_SESSION['checkOut']);

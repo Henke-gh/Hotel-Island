@@ -20,9 +20,9 @@ $hotelRooms = [
 $response = [
     "island" => "Main island",
     "hotel" => "Your Hotel Name",
-    "arrival_date" => $arrivalDate,
-    "departure_date" => $departureDate,
-    "total_cost" => $totalCost,
+    "arrival_date" => "2024-01-00",
+    "departure_date" => "2024-01-00",
+    "total_cost" => 0,
     "stars" => 3,
     "features" => [
         [

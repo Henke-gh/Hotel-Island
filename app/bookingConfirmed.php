@@ -7,6 +7,7 @@ require_once __DIR__ . "/../nav/header.html";
     <?php if (isset($_SESSION['roomConfirmed'])) : ?>
         <h3><?= $_SESSION['roomConfirmed']; ?></h3>
         <p><?= $_SESSION['datesBooked']; ?></p>
+        <p><?php var_dump($_SESSION['response']); ?></p>
     <?php endif;
     unset($_SESSION['roomConfirmed']);
     unset($_SESSION['datesBooked']); ?>

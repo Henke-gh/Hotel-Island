@@ -8,9 +8,12 @@ $db = connect('hotel.sqlite');
 
 //if everything is OK and user has confirmed booking adds to database and outputs reponse.
 if (isset($_POST['bookRoom'])) {
-    $room = ucfirst($_POST['selectedRoom']);
+    $selectedRoomID = $_POST['selectedRoomID'];
     $guestName = trim(htmlspecialchars($_POST['guestName'], ENT_QUOTES));
     $totalCost = $_POST['roomTotalCost'];
+    die(var_dump($totalCost));
+    $arrivalDate = $_SESSION['checkIn'];
+    $departureDate = $_SESSION['checkOut'];
     $extras = "none";
 
     insertBookingInformation();

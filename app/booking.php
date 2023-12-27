@@ -84,13 +84,14 @@ if (isset($_POST['searchAvailable'])) {
                 <h2>Available Rooms</h2>
                 <?php foreach ($availableRooms as $room) :
                     $totalCost = $numberOfDays * $room['cost']; ?>
+                    <input type="hidden" name="roomTotalCost" value="<?= $totalCost; ?>">
                     <div class="room">
                         <h3><?= $room['roomName']; ?> Room</h3>
                         <p>Price per day: <?= $room['cost']; ?>$</p>
                         <p>Total cost: <?= $totalCost; ?>$</p>
                         <p>Available</p>
-                        <input type="hidden" name="roomTotalCost" value="<?= $totalCost; ?>">
-                        <input type="hidden" name="selectedRoom" value="<?= $room['roomName']; ?>">
+                        <p><?= $room['id']; ?></p>
+                        <input type="radio" name="selectedRoomID" value="<?= $room['id']; ?>">
                     </div>
                 <?php endforeach; ?>
             </div>
