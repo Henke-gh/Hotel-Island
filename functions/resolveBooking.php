@@ -10,12 +10,13 @@ $db = connect('hotel.sqlite');
 if (isset($_POST['bookRoom'])) {
     $selectedRoomID = $_POST['selectedRoomID'];
     $guestName = trim(htmlspecialchars($_POST['guestName'], ENT_QUOTES));
-    $totalCost = $_POST['roomTotalCost'];
-    die(var_dump($totalCost));
     $arrivalDate = $_SESSION['checkIn'];
     $departureDate = $_SESSION['checkOut'];
     $extras = "none";
 
+    getNumberOfDaysBooked();
+    getRoomCost($selectedRoomID);
+    $totalCost = $numberOfDays * $roomCost;
     insertBookingInformation();
 
     $_SESSION['roomConfirmed'] = "You have booked our " . $_SESSION['selectedRoom']['roomName'] . " room. Enjoy your stay!";

@@ -66,6 +66,23 @@ function getSpecificRoom($room)
     }
 }
 
+function getRoomCost($roomID)
+{
+    global $db, $roomCost;
+    try {
+        $query = "SELECT cost FROM rooms WHERE id = '$roomID'";
+
+        $statement = $db->query($query);
+
+        $selectedRoom = $statement->fetch();
+        $roomCost = $selectedRoom['cost'];
+    } catch (PDOException $e) {
+        echo "Error fetching room data.";
+        throw $e;
+    }
+    return $roomCost;
+}
+
 //Checks room availability in hotel.sqlite
 function checkRoomAvailability($roomID)
 {
@@ -112,6 +129,18 @@ function insertBookingInformation()
         echo "Error fetching data.";
         throw $e;
     }
+}
+
+function getNumberOfDaysBooked()
+{
+    global $numberOfDays;
+    //string to DateTime conversion to get number of days booked, used to calculate total price.
+    $arrivalDate = new DateTime($_SESSION['checkIn']);
+    $departureDate = new DateTime($_SESSION['checkOut']);
+    $interval = $arrivalDate->diff($departureDate);
+    $numberOfDays = $interval->days;
+
+    return $numberOfDays;
 }
 
 function guidv4(string $data = null): string

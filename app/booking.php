@@ -11,11 +11,7 @@ if (isset($_POST['searchAvailable'])) {
     $_SESSION['checkOut'] = $_POST['checkOut'];
     $_SESSION['dateReservation'] = "Your dates: " . $_SESSION['checkIn'] . " - " . $_SESSION['checkOut'];
 
-    //string to DateTime conversion to get number of days booked, used to calculate total price.
-    $arrivalDate = new DateTime($_SESSION['checkIn']);
-    $departureDate = new DateTime($_SESSION['checkOut']);
-    $interval = $arrivalDate->diff($departureDate);
-    $numberOfDays = $interval->days;
+    getNumberOfDaysBooked();
 
     $rooms = selectAllRooms();
     $availableRooms = [];
@@ -84,13 +80,11 @@ if (isset($_POST['searchAvailable'])) {
                 <h2>Available Rooms</h2>
                 <?php foreach ($availableRooms as $room) :
                     $totalCost = $numberOfDays * $room['cost']; ?>
-                    <input type="hidden" name="roomTotalCost" value="<?= $totalCost; ?>">
                     <div class="room">
                         <h3><?= $room['roomName']; ?> Room</h3>
                         <p>Price per day: <?= $room['cost']; ?>$</p>
                         <p>Total cost: <?= $totalCost; ?>$</p>
                         <p>Available</p>
-                        <p><?= $room['id']; ?></p>
                         <input type="radio" name="selectedRoomID" value="<?= $room['id']; ?>">
                     </div>
                 <?php endforeach; ?>
