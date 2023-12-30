@@ -19,13 +19,16 @@ if (isset($_POST['bookRoom'])) {
         getNumberOfDaysBooked();
         getRoomCost($selectedRoomID);
         $totalCost = $numberOfDays * $roomCost;
-        insertBookingInformation();
-
-        $_SESSION['roomConfirmed'] = "You have booked our " . $_SESSION['selectedRoom']['roomName'] . " room. Enjoy your stay!";
-        $_SESSION['datesBooked'] = "Check in on: " . $_SESSION['checkIn'] . " with Check out: " . $_SESSION['checkOut'];
-        $_SESSION['response'] = json_encode($response);
-        header('Location: /../app/bookingConfirmed.php');
-        exit();
+        if (checkTransferCode($guestTransferCode, $totalCost)) {
+            insertBookingInformation();
+            $_SESSION['roomConfirmed'] = "You have booked our " . $_SESSION['selectedRoom']['roomName'] . " room. Enjoy your stay!";
+            $_SESSION['datesBooked'] = "Check in on: " . $_SESSION['checkIn'] . " with Check out: " . $_SESSION['checkOut'];
+            $_SESSION['response'] = json_encode($response);
+            header('Location: /../app/bookingConfirmed.php');
+            exit();
+        } else {
+            echo "Sorry, not enough funds.";
+        }
     } else {
         $_SESSION['error'] = "Transfercode not valid. Could not complete booking request.";
 

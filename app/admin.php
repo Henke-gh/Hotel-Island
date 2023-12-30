@@ -16,6 +16,7 @@ require_once __DIR__ . "/../nav/header.html";
     echo $_ENV['API_KEY'];
 
     use GuzzleHttp\Client;
+    use PSpell\Config;
 
     $client = new Client();
 

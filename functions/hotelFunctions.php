@@ -145,6 +145,30 @@ function getNumberOfDaysBooked()
     return $numberOfDays;
 }
 
+function checkTransferCode(string $transferCode, int $totalCost): bool
+{
+    $client = new Client([
+        'base_uri' => 'https://www.yrgopelag.se/centralbank',
+    ]);
+
+    try {
+        $response = $client->post('https://www.yrgopelag.se/centralbank/transferCode', [
+            'form_params' => [
+                'transferCode' => $transferCode,
+                'totalcost' => $totalCost,
+            ],
+            'verify' => false,
+        ]);
+
+        $statusCode = $response->getStatusCode();
+
+        return $statusCode === 200;
+    } catch (GuzzleHttp\Exception\ClientException $e) {
+        echo $e;
+        return false;
+    }
+}
+
 function guidv4(string $data = null): string
 {
     // Generate 16 bytes (128 bits) of random data or use the data passed into the function.
