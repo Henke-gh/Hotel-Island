@@ -10,6 +10,12 @@ $rooms = selectAllRooms();
 <main>
     <h2>Welcome to Hotel Island</h2>
     <h3>BOOK YOUR STAY NOW!</h3>
+    <?php if (isset($_SESSION['error'])) : ?>
+        <div class="bookingErrorContainer">
+            <p><?= $_SESSION['error']; ?></p>
+        </div>
+    <?php endif;
+    unset($_SESSION['error']); ?>
     <form method="post" action="/app/booking.php">
         <input type="date" name="checkIn" min="2024-01-01" max="2024-01-31" required>
         <input type="date" name="checkOut" min="2024-01-01" max="2024-01-31" required>

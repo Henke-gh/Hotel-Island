@@ -30,7 +30,9 @@ if (isset($_POST['searchAvailable'])) {
 <main>
     <h2>Book your stay</h2>
     <?php if (isset($_SESSION['error'])) : ?>
-        <p><?= $_SESSION['error']; ?></p>
+        <div class="bookingErrorContainer">
+            <p><?= $_SESSION['error']; ?></p>
+        </div>
     <?php endif;
     unset($_SESSION['error']); ?>
     <?php if (isset($_SESSION['dateReservation'])) : ?>
@@ -91,8 +93,14 @@ if (isset($_POST['searchAvailable'])) {
             </div>
             <label id="guestName">Enter Name:</label>
             <input type="text" name="guestName" required>
+            <label id="guestTransferCode">Enter Transfer Code:</label>
+            <input type="text" name="guestTransferCode" required>
             <button type="submit" name="bookRoom">Book Selected</button>
         </form>
+        <div>
+            <a href="https://www.yrgopelag.se/centralbank/" target="_blank">Get Transfercode - Central Bank</a>
+            <p>Opens in new tab</p>
+        </div>
     <?php else : ?>
         <h3>Sorry, no rooms available for your dates.</h3>
     <?php endif; ?>

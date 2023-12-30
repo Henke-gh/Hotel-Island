@@ -63,6 +63,11 @@ tbody td {
   padding: 10px;
 }
 
+.bookingErrorContainer {
+  background-color: red;
+  width: fit-content;
+}
+
 footer {
   margin-top: 10%;
 }

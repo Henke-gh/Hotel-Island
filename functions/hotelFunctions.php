@@ -12,6 +12,7 @@ and one function to control if a guid is valid.
 */
 
 use GuzzleHttp\RetryMiddleware;
+use GuzzleHttp\Client;
 
 function connect(string $dbName): object
 {
@@ -113,10 +114,10 @@ function checkRoomAvailability($roomID)
 
 function insertBookingInformation()
 {
-    global $guestName, $extras, $db, $selectedRoomID, $totalCost;
+    global $guestName, $extras, $db, $selectedRoomID, $totalCost, $guestTransferCode;
     try {
-        $prepare = $db->prepare("INSERT into guests (roomID, guestName, arrival, departure, extras, cost)
-        VALUES (:roomID, :guestName, :arrival, :departure, :extras, :cost)");
+        $prepare = $db->prepare("INSERT into guests (roomID, guestName, arrival, departure, extras, cost, transferCode)
+        VALUES (:roomID, :guestName, :arrival, :departure, :extras, :cost, :transferCode)");
 
         $prepare->bindParam(':roomID', $selectedRoomID);
         $prepare->bindParam(':guestName', $guestName);
@@ -124,6 +125,7 @@ function insertBookingInformation()
         $prepare->bindParam(':departure', $_SESSION['checkOut']);
         $prepare->bindParam(':extras', $extras);
         $prepare->bindParam(':cost', $totalCost);
+        $prepare->bindParam(':transferCode', $guestTransferCode);
         $prepare->execute();
     } catch (PDOException $e) {
         echo "Error fetching data.";
