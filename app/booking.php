@@ -84,6 +84,8 @@ if (isset($_POST['searchAvailable'])) {
                     $totalCost = $numberOfDays * $room['cost']; ?>
                     <div class="room">
                         <h3><?= $room['roomName']; ?> Room</h3>
+                        <img src="/images/room_temp.png">
+                        <p>Description:</p>
                         <p>Price per day: <?= $room['cost']; ?>$</p>
                         <p>Total cost: <?= $totalCost; ?>$</p>
                         <p>Available</p>
@@ -91,11 +93,13 @@ if (isset($_POST['searchAvailable'])) {
                     </div>
                 <?php endforeach; ?>
             </div>
-            <label id="guestName">Enter Name:</label>
-            <input type="text" name="guestName" required>
-            <label id="guestTransferCode">Enter Transfer Code:</label>
-            <input type="text" name="guestTransferCode" required>
-            <button type="submit" name="bookRoom">Book Selected</button>
+            <div class="bookStay">
+                <label id="guestName">Enter Name:</label>
+                <input type="text" name="guestName" required>
+                <label id="guestTransferCode">Enter Transfer Code:</label>
+                <input type="text" name="guestTransferCode" required>
+                <button type="submit" name="bookRoom">Book Selected</button>
+            </div>
         </form>
         <div class="getTransferCode">
             <a href="https://www.yrgopelag.se/centralbank/" target="_blank">Get Transfercode - Central Bank</a>

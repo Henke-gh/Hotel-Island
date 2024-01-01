@@ -20,7 +20,7 @@ if (isset($_POST['bookRoom'])) {
         getRoomCost($selectedRoomID);
         $totalCost = $numberOfDays * $roomCost;
         $totalcostFromAPI = checkTransferCode($guestTransferCode, $totalCost);
-        if ($totalcostFromAPI >= $totalCost) {
+        if ($totalcostFromAPI === $totalCost) {
             insertBookingInformation();
             $_SESSION['roomConfirmed'] = "You have booked our " . $_SESSION['selectedRoom']['roomName'] . " room. Enjoy your stay!";
             $_SESSION['datesBooked'] = "Check in on: " . $_SESSION['checkIn'] . " with Check out: " . $_SESSION['checkOut'];

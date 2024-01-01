@@ -163,6 +163,7 @@ function checkTransferCode(string $transferCode, int $totalCost)
 
         //$statusCode = $transferResponse->getStatusCode();
         $responseData = json_decode($transferResponse->getBody(), true);
+        //die(var_dump($responseData));
         if (in_array('amount', $responseData)) {
             return $responseData['amount'];
         } else {
