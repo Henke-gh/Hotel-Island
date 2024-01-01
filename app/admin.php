@@ -20,20 +20,24 @@ require_once __DIR__ . "/../nav/header.html";
 
     $client = new Client();
 
-    $url = "https://www.yrgopelag.se/centralbank/";
+    $url = "https://www.yrgopelag.se/centralbank/transferCode";
 
     $data = [
         'API_KEY' => '9ca1e3d1-aa16-4455-9936-739984164f40'
     ];
 
     $response = $client->request('POST', $url, [
-        'form_params' => $data,
+        'form_params' => [
+            'transferCode' => '3120666f-9894-46b9-ae34-76a0310fac20',
+            'totalcost' => 15,
+        ],
         'verify' => false,
     ]);
 
-    $body = $response->getBody()->getContents();
+    $body = json_decode($response->getBody(), true);
 
-    echo $body;
+    echo '<pre>';
+    var_dump($body);
     ?>
 </main>
 

@@ -1,18 +1,36 @@
+:root {
+  --magenta: #ff4de1;
+  --fieryOrange: #ff604d;
+  --sunsetPink: #ff4d78;
+  --lilac: #f0c7fc;
+  --beige: #fccab6;
+  --darkBlue: #19334f;
+  --blue: #224264;
+}
+
 body {
   margin: 0;
-  background-color: darkgrey;
+  background-color: var(--darkBlue);
+  color: var(--sunsetPink);
+}
+
+h1 {
+  color: var(--darkBlue);
 }
 
 main {
+  background-color: var(--blue);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 header {
   text-align: center;
-  background-color: grey;
+  background-color: var(--sunsetPink);
   padding-top: 5px;
   padding-bottom: 5px;
 }
@@ -21,6 +39,14 @@ header nav {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+}
+
+footer {
+  background-color: var(--sunsetPink);
+  color: var(--darkBlue);
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 /* Calendar */
@@ -52,20 +78,31 @@ tbody td {
 /* end Calendar */
 
 .displayRooms {
-  background-color: grey;
+  background-color: var(--sunsetPink);
+  color: var(--darkBlue);
   display: flex;
   flex-direction: row;
   gap: 20px;
 }
 
 .room {
-  background-color: lightgrey;
+  background-color: var(--lilac);
+  color: var(--darkBlue);
   padding: 10px;
 }
 
 .bookingErrorContainer {
-  background-color: red;
+  background-color: var(--fieryOrange);
+  color: var(--darkBlue);
   width: fit-content;
+}
+
+.getTransferCode {
+  width: fit-content;
+  padding: 5px;
+  background-color: var(--sunsetPink);
+  color: var(--darkBlue);
+  text-align: center;
 }
 
 footer {

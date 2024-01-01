@@ -145,14 +145,15 @@ function getNumberOfDaysBooked()
     return $numberOfDays;
 }
 
-function checkTransferCode(string $transferCode, int $totalCost): bool
+function checkTransferCode(string $transferCode, int $totalCost)
 {
+    global $transferResponse;
     $client = new Client([
         'base_uri' => 'https://www.yrgopelag.se/centralbank',
     ]);
 
     try {
-        $response = $client->post('https://www.yrgopelag.se/centralbank/transferCode', [
+        $transferResponse = $client->post('https://www.yrgopelag.se/centralbank/transferCode', [
             'form_params' => [
                 'transferCode' => $transferCode,
                 'totalcost' => $totalCost,
@@ -160,9 +161,13 @@ function checkTransferCode(string $transferCode, int $totalCost): bool
             'verify' => false,
         ]);
 
-        $statusCode = $response->getStatusCode();
-
-        return $statusCode === 200;
+        //$statusCode = $transferResponse->getStatusCode();
+        $responseData = json_decode($transferResponse->getBody(), true);
+        if (in_array('amount', $responseData)) {
+            return $responseData['amount'];
+        } else {
+            return 0;
+        }
     } catch (GuzzleHttp\Exception\ClientException $e) {
         echo $e;
         return false;

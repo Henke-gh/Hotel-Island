@@ -19,7 +19,8 @@ if (isset($_POST['bookRoom'])) {
         getNumberOfDaysBooked();
         getRoomCost($selectedRoomID);
         $totalCost = $numberOfDays * $roomCost;
-        if (checkTransferCode($guestTransferCode, $totalCost)) {
+        $totalcostFromAPI = checkTransferCode($guestTransferCode, $totalCost);
+        if ($totalcostFromAPI >= $totalCost) {
             insertBookingInformation();
             $_SESSION['roomConfirmed'] = "You have booked our " . $_SESSION['selectedRoom']['roomName'] . " room. Enjoy your stay!";
             $_SESSION['datesBooked'] = "Check in on: " . $_SESSION['checkIn'] . " with Check out: " . $_SESSION['checkOut'];
@@ -27,7 +28,10 @@ if (isset($_POST['bookRoom'])) {
             header('Location: /../app/bookingConfirmed.php');
             exit();
         } else {
-            echo "Sorry, not enough funds.";
+            $_SESSION['error'] = "Sorry, funds to be transfered does not match your Total Cost. Booking cancelled.";
+
+            header('Location: /../index.php');
+            exit();
         }
     } else {
         $_SESSION['error'] = "Transfercode not valid. Could not complete booking request.";

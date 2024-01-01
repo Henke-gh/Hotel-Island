@@ -97,7 +97,7 @@ if (isset($_POST['searchAvailable'])) {
             <input type="text" name="guestTransferCode" required>
             <button type="submit" name="bookRoom">Book Selected</button>
         </form>
-        <div>
+        <div class="getTransferCode">
             <a href="https://www.yrgopelag.se/centralbank/" target="_blank">Get Transfercode - Central Bank</a>
             <p>Opens in new tab</p>
         </div>
