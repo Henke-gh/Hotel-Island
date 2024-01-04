@@ -8,8 +8,8 @@ $rooms = selectAllRooms();
 ?>
 
 <main>
-    <h2>Welcome to Hotel Island</h2>
-    <h3>Book your stay now!</h3>
+    <h1>Welcome to Hotel Island</h1>
+    <h2>Book your stay now!</h2>
     <?php if (isset($_SESSION['error'])) : ?>
         <div class="bookingErrorContainer">
             <p><?= $_SESSION['error']; ?></p>
@@ -29,23 +29,24 @@ $rooms = selectAllRooms();
         <h2>Stay for three days or more and get 25% off! Available through January 2024!</h2>
     </div>
 
+    <h2>Read up on our Rooms</h2>
     <div class="displayRooms">
         <div class="room">
-            <h3>Budget Room</h3>
+            <h2><?= $rooms[0]['roomName']; ?></h2>
             <img src="/images/room_temp.png">
-            <p>Description:</p>
+            <p><?= $rooms[0]['description']; ?></p>
             <p>Cost: <?= $rooms[0]['cost']; ?>$</p>
         </div>
         <div class="room">
-            <h3>Standard Room</h3>
+            <h2><?= $rooms[1]['roomName']; ?></h2>
             <img src="/images/room_temp.png">
-            <p>Description:</p>
+            <p><?= $rooms[1]['description']; ?></p>
             <p>Cost: <?= $rooms[1]['cost']; ?>$</p>
         </div>
         <div class="room">
-            <h3>Luxury Room</h3>
+            <h2><?= $rooms[2]['roomName']; ?></h2>
             <img src="/images/room_temp.png">
-            <p>Description:</p>
+            <p><?= $rooms[2]['description']; ?></p>
             <p>Cost: <?= $rooms[2]['cost']; ?>$</p>
         </div>
 

@@ -28,7 +28,7 @@ if (isset($_POST['searchAvailable'])) {
 ?>
 
 <main>
-    <h2>Book your stay</h2>
+    <h1>Book your stay</h1>
     <?php if (isset($_SESSION['error'])) : ?>
         <div class="bookingErrorContainer">
             <p><?= $_SESSION['error']; ?></p>
@@ -77,18 +77,19 @@ if (isset($_POST['searchAvailable'])) {
         </form> -->
     </div>
     <?php if (!empty($availableRooms)) : ?>
+        <h1>Available Rooms</h1>
         <form method="post" action="/../functions/resolveBooking.php">
             <div class="displayRooms">
-                <h2>Available Rooms</h2>
                 <?php foreach ($availableRooms as $room) :
                     $totalCost = $numberOfDays * $room['cost']; ?>
                     <div class="room">
-                        <h3><?= $room['roomName']; ?> Room</h3>
+                        <h2><?= $room['roomName']; ?></h2>
                         <img src="/images/room_temp.png">
-                        <p>Description:</p>
+                        <p><?= $room['description']; ?></p>
                         <p>Price per day: <?= $room['cost']; ?>$</p>
                         <p>Total cost: <?= $totalCost; ?>$</p>
                         <p>Available</p>
+                        <label name="selectedRoomID">Select Room</label>
                         <input type="radio" name="selectedRoomID" value="<?= $room['id']; ?>">
                     </div>
                 <?php endforeach; ?>
