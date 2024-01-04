@@ -4,6 +4,7 @@
   --magenta: #ff4de1;
   --fieryOrange: #ff604d;
   --sunsetPink: #ff4d78;
+  --sunsetPinkDark: #e8456b;
   --lilac: #f0c7fc;
   --beige: #fccab6;
   --darkBlue: #19334f;
@@ -100,6 +101,38 @@ tbody td {
 
 /* end Calendar */
 
+.datesContainer {
+  background-color: var(--darkBlue);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.datePicker {
+  background-color: var(--lilac);
+  color: var(--darkBlue);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: 8px;
+  border-radius: 10px;
+  border: 2px solid var(--sunsetPink);
+}
+
+.dateSelect {
+  background-color: var(--sunsetPink);
+  color: var(--darkBlue);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: 9px;
+  border-radius: 10px;
+}
+
+.dateSelect:hover {
+  background-color: var(--sunsetPinkDark);
+  cursor: pointer;
+}
+
 .specialOffer {
   background-color: var(--beige);
   color: var(--darkBlue);
@@ -147,6 +180,10 @@ tbody td {
   background-color: var(--sunsetPink);
   color: var(--darkBlue);
   text-align: center;
+}
+
+.jsonResponseLink {
+  color: var(--beige);
 }
 
 footer {
