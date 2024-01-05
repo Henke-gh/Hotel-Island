@@ -35,19 +35,19 @@ $rooms = selectAllRooms();
             <h2><?= $rooms[0]['roomName']; ?></h2>
             <img src="/images/room_temp.png">
             <p><?= $rooms[0]['description']; ?></p>
-            <p>Cost: <?= $rooms[0]['cost']; ?>$</p>
+            <p>Cost: <?= $rooms[0]['cost']; ?>$/ per night.</p>
         </div>
         <div class="room">
             <h2><?= $rooms[1]['roomName']; ?></h2>
             <img src="/images/room_temp.png">
             <p><?= $rooms[1]['description']; ?></p>
-            <p>Cost: <?= $rooms[1]['cost']; ?>$</p>
+            <p>Cost: <?= $rooms[1]['cost']; ?>$/ per night.</p>
         </div>
         <div class="room">
             <h2><?= $rooms[2]['roomName']; ?></h2>
             <img src="/images/room_temp.png">
             <p><?= $rooms[2]['description']; ?></p>
-            <p>Cost: <?= $rooms[2]['cost']; ?>$</p>
+            <p>Cost: <?= $rooms[2]['cost']; ?>$/ per night.</p>
         </div>
 
     </div>

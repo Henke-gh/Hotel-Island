@@ -170,14 +170,66 @@ tbody td {
   padding: 10px;
 }
 
+.addExtraPerksContainer {
+  margin: 0 auto;
+  width: 95%;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  background-color: var(--beige);
+  color: var(--darkBlue);
+  text-align: center;
+}
+
+.specialsInfoContainer {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  text-align: left;
+  padding: 10px;
+}
+
+.bookStayWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--sunsetPink);
+  margin: 0 auto;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 95%;
+}
+
 .bookStay {
   display: flex;
   flex-direction: column;
   width: fit-content;
-  margin: 0 auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
   padding: 5px;
-  background-color: var(--sunsetPink);
+  background-color: var(--lilac);
   color: var(--darkBlue);
+}
+
+.bookStay button {
+  width: fit-content;
+  margin: 0 auto;
+  margin-top: 5px;
+  font-family: var(--urbanist);
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: 2px;
+  color: var(--darkBlue);
+  background-color: var(--sunsetPink);
+}
+
+.bookStay button:hover {
+  background-color: var(--sunsetPinkDark);
+}
+
+.bookStay h2 {
+  color: var(--darkBlue);
+  font-family: var(--lobsterTwo);
 }
 
 .bookingErrorContainer {
@@ -189,10 +241,17 @@ tbody td {
 .getTransferCode {
   width: fit-content;
   padding: 5px;
-  margin-top: 5px;
-  background-color: var(--sunsetPink);
+  background-color: var(--lilac);
   color: var(--darkBlue);
   text-align: center;
+}
+
+.getTransferCode a {
+  font-size: 1.5em;
+}
+
+.getTransferCode p {
+  margin-top: 5px;
 }
 
 .jsonResponseLink {

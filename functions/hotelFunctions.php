@@ -145,6 +145,18 @@ function getNumberOfDaysBooked()
     return $numberOfDays;
 }
 
+//checks if guest stay is longer than 3 days. If so, applies 25%-off to total cost.
+function checkOfferValidity()
+{
+    global $totalCost, $numberOfDays;
+
+    if ($numberOfDays > 2) {
+        $totalCost = (int) ceil($totalCost * 0.75);
+    }
+
+    return $totalCost;
+}
+
 function checkTransferCode(string $transferCode, int $totalCost)
 {
     global $transferResponse;

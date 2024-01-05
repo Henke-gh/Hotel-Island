@@ -81,7 +81,8 @@ if (isset($_POST['searchAvailable'])) {
         <form method="post" action="/../functions/resolveBooking.php">
             <div class="displayRooms">
                 <?php foreach ($availableRooms as $room) :
-                    $totalCost = $numberOfDays * $room['cost']; ?>
+                    $totalCost = $numberOfDays * $room['cost'];
+                    $totalCost = checkOfferValidity(); ?>
                     <div class="room">
                         <h2><?= $room['roomName']; ?></h2>
                         <img src="/images/room_temp.png">
@@ -89,23 +90,67 @@ if (isset($_POST['searchAvailable'])) {
                         <p>Price per day: <?= $room['cost']; ?>$</p>
                         <p>Total cost: <?= $totalCost; ?>$</p>
                         <p>Available</p>
-                        <label name="selectedRoomID">Select Room</label>
                         <input type="radio" name="selectedRoomID" value="<?= $room['id']; ?>">
+                        <label name="selectedRoomID">Select Room</label>
                     </div>
                 <?php endforeach; ?>
             </div>
-            <div class="bookStay">
-                <label id="guestName">Enter Name:</label>
-                <input type="text" name="guestName" required>
-                <label id="guestTransferCode">Enter Transfer Code:</label>
-                <input type="text" name="guestTransferCode" required>
-                <button type="submit" name="bookRoom">Book Selected</button>
+            <div class="addExtraPerksContainer">
+                <h2>About our specials</h2>
+                <div class="specialsInfoContainer">
+                    <div class="specialsInfo">
+                        <h3>600m Breakfast Hurdle</h3>
+                        <p>Join the Breakfast Hurdle!</p>
+                        <p>Every food-station is separated by a 50m hurdle track. Complete the course
+                            and arrive at the finish line with a full plate!
+                        </p>
+                        <p>Cost: 3$</p>
+                        <div class="addExtraPerks">
+                            <label name="breakfastClub">Add 600m Breakfast Hurdle</label>
+                            <input type="checkbox" name="breakfastClub">
+                        </div>
+                    </div>
+                    <div class="specialsInfo">
+                        <h3>Lunging Lunch Lounge</h3>
+                        <p>The Lunchioneers Paradox</p>
+                        <p>Can you combine a relaxing lounge lunch with rapidfire, high tempo, lunges?
+                            We don't know, we'll leave that to you to figure out. Cramps included.
+                        </p>
+                        <p>Cost: 4$</p>
+                        <div class="addExtraPerks">
+                            <label name="lunchLunges">Lunging Lunch Lounge</label>
+                            <input type="checkbox" name="lunchLunges">
+                        </div>
+                    </div>
+                    <div class="specialsInfo">
+                        <h3>2 in 1 Pool Party</h3>
+                        <p>We heard you like pool..</p>
+                        <p>So we put a pool table in our pool so you can play pool while you're in the pool!
+                            What's not to like?
+                        </p>
+                        <p>Cost: 3$</p>
+                        <div class="addExtraPerks">
+                            <label name="poolParty">2 in 1 Pool Party</label>
+                            <input type="checkbox" name="poolParty">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bookStayWrapper">
+                <div class="bookStay">
+                    <h2>Enter Additional Booking Information</h2>
+                    <label id="guestName">Enter Name:</label>
+                    <input type="text" name="guestName" required>
+                    <label id="guestTransferCode">Enter Transfer Code:</label>
+                    <input type="text" name="guestTransferCode" required>
+                    <button type="submit" name="bookRoom">Book Stay</button>
+                    <div class="getTransferCode">
+                        <a href="https://www.yrgopelag.se/centralbank/" target="_blank">Get Transfercode - Central Bank</a>
+                        <p>(Opens in new tab)</p>
+                    </div>
+                </div>
             </div>
         </form>
-        <div class="getTransferCode">
-            <a href="https://www.yrgopelag.se/centralbank/" target="_blank">Get Transfercode - Central Bank</a>
-            <p>Opens in new tab</p>
-        </div>
     <?php else : ?>
         <h3>Sorry, no rooms available for your dates.</h3>
     <?php endif; ?>
