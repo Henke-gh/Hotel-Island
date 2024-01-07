@@ -151,6 +151,16 @@ tbody td {
   border-radius: 10px;
 }
 
+.specialsInfo:nth-child(2) {
+  border-left: 2px solid var(--sunsetPink);
+  border-right: 2px solid var(--sunsetPink);
+  padding-left: 5px;
+}
+
+.specialsInfo:nth-child(3) {
+  padding-left: 5px;
+}
+
 .displayRooms {
   background-color: var(--sunsetPink);
   color: var(--darkBlue);
@@ -178,6 +188,14 @@ tbody td {
   background-color: var(--beige);
   color: var(--darkBlue);
   text-align: center;
+}
+
+.addExtraPerksContainer h2 {
+  background-color: var(--lilac);
+  margin: 0;
+  padding: 20px 0;
+  border-top: 5px solid var(--sunsetPink);
+  border-bottom: 5px solid var(--sunsetPink);
 }
 
 .specialsInfoContainer {
@@ -256,6 +274,11 @@ tbody td {
 
 .jsonResponseLink {
   color: var(--beige);
+}
+
+.linkBookingConfirmed {
+  color: var(--sunsetPink);
+  margin-top: 10px;
 }
 
 footer {

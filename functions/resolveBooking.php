@@ -21,8 +21,11 @@ if (isset($_POST['bookRoom'])) {
         $totalCost = $numberOfDays * $roomCost;
         $totalcostFromAPI = checkTransferCode($guestTransferCode, $totalCost);
         if ($totalcostFromAPI === $totalCost) {
+            $response['arrival_date'] = $arrivalDate;
+            $response['departure_date'] = $departureDate;
+            $response['total_cost'] = $totalCost;
             insertBookingInformation();
-            $_SESSION['roomConfirmed'] = "You have booked our " . $_SESSION['selectedRoom']['roomName'] . " room. Enjoy your stay!";
+            $_SESSION['roomConfirmed'] = "Thank you for staying with us!";
             $_SESSION['datesBooked'] = "Check in on: " . $_SESSION['checkIn'] . " with Check out: " . $_SESSION['checkOut'];
             $_SESSION['response'] = json_encode($response);
             header('Location: /../app/bookingConfirmed.php');

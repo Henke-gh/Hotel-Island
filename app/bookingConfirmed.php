@@ -12,7 +12,7 @@ require_once __DIR__ . "/../nav/header.html";
     unset($_SESSION['roomConfirmed']);
     unset($_SESSION['datesBooked']); ?>
 
-    <a href="/../index.php">Return to Front Page</a>
+    <a class="linkBookingConfirmed" href="/../index.php">Return to Front Page</a>
 </main>
 
 <?php require_once __DIR__ . "/../nav/footer.html";

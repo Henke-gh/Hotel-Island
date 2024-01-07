@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . "/../functions/sessionStart.php";
+require_once __DIR__ . "/../functions/arrays.php";
+require_once __DIR__ . "/../functions/hotelFunctions.php";
 require_once __DIR__ . "/../nav/header.html";
 ?>
 
@@ -7,6 +9,8 @@ require_once __DIR__ . "/../nav/header.html";
     <h2>Admin</h2>
 
     <?php
+    echo '<pre>';
+    depositFunds('Henrik', '8922a221-1125-4987-9b09-38f5e91c4ace');
 
     use Dotenv\Dotenv;
 
@@ -40,57 +44,5 @@ require_once __DIR__ . "/../nav/header.html";
     var_dump($body);
     ?>
 </main>
-
-
-To check if a given transfer code is valid using Composer/Guzzle in PHP, you can make a POST request to the /transferCode endpoint of the central bank API. Below is an example of how you can use Guzzle to achieve this:
-
-First, ensure you have Guzzle installed via Composer:
-
-bash
-Copy code
-composer require guzzlehttp/guzzle
-Now, you can use the following code:
-
-php
-Copy code
-<?php
-
-require 'vendor/autoload.php';
-
-//use GuzzleHttp\Client;
-
-function checkTransferCode(string $transferCode, float $totalCost): bool
-{
-    // Replace 'your-api-key' with the actual API key obtained from /startCode endpoint
-    $apiKey = 'your-api-key';
-
-    $client = new Client([
-        'base_uri' => 'https://www.yrgopelag.se/centralbank',
-    ]);
-
-    $response = $client->post('/transferCode', [
-        'json' => [
-            'transferCode' => $transferCode,
-            'totalcost' => $totalCost,
-        ],
-        'headers' => [
-            'Authorization' => 'Bearer ' . $apiKey,
-        ],
-    ]);
-
-    $statusCode = $response->getStatusCode();
-
-    return $statusCode === 200;
-}
-
-// Example usage
-$transferCode = 'the-transfercode'; // Replace with the actual transfer code
-$totalCost = 10; // Replace with the actual total cost
-
-if (checkTransferCode($transferCode, $totalCost)) {
-    echo 'Transfer code is valid.';
-} else {
-    echo 'Transfer code is invalid.';
-} ?>
 
 <?php require_once __DIR__ . "/../nav/footer.html";

@@ -104,10 +104,10 @@ if (isset($_POST['searchAvailable'])) {
                         <p>Every food-station is separated by a 50m hurdle track. Complete the course
                             and arrive at the finish line with a full plate!
                         </p>
-                        <p>Cost: 3$</p>
+                        <p>Cost: 2$</p>
                         <div class="addExtraPerks">
                             <label name="breakfastClub">Add 600m Breakfast Hurdle</label>
-                            <input type="checkbox" name="breakfastClub">
+                            <input type="checkbox" name="breakfastClub" value="2">
                         </div>
                     </div>
                     <div class="specialsInfo">
@@ -116,10 +116,10 @@ if (isset($_POST['searchAvailable'])) {
                         <p>Can you combine a relaxing lounge lunch with rapidfire, high tempo, lunges?
                             We don't know, we'll leave that to you to figure out. Cramps included.
                         </p>
-                        <p>Cost: 4$</p>
+                        <p>Cost: 3$</p>
                         <div class="addExtraPerks">
                             <label name="lunchLunges">Lunging Lunch Lounge</label>
-                            <input type="checkbox" name="lunchLunges">
+                            <input type="checkbox" name="lunchLunges" value="3">
                         </div>
                     </div>
                     <div class="specialsInfo">
@@ -128,10 +128,10 @@ if (isset($_POST['searchAvailable'])) {
                         <p>So we put a pool table in our pool so you can play pool while you're in the pool!
                             What's not to like?
                         </p>
-                        <p>Cost: 3$</p>
+                        <p>Cost: 2$</p>
                         <div class="addExtraPerks">
                             <label name="poolParty">2 in 1 Pool Party</label>
-                            <input type="checkbox" name="poolParty">
+                            <input type="checkbox" name="poolParty" value="2">
                         </div>
                     </div>
                 </div>
@@ -153,6 +153,14 @@ if (isset($_POST['searchAvailable'])) {
         </form>
     <?php else : ?>
         <h3>Sorry, no rooms available for your dates.</h3>
+        <h3>Select other dates.</h3>
+        <form method="post" action="/../app/booking.php">
+            <div class="datesContainer">
+                <input class="datePicker" type="date" name="checkIn" min="2024-01-01" max="2024-01-31" required>
+                <input class="datePicker" type="date" name="checkOut" min="2024-01-01" max="2024-01-31" required>
+                <button class="dateSelect" type="submit" name="searchAvailable">Search</button>
+            </div>
+        </form>
     <?php endif; ?>
 </main>
 

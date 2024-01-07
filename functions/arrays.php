@@ -18,12 +18,12 @@ $hotelRooms = [
 
 //placeholder response-array to be converted to json on booking completion
 $response = [
-    "island" => "Main island",
-    "hotel" => "Your Hotel Name",
+    "island" => "Nonsensical Island",
+    "hotel" => "The Two Sticks in a Pond",
     "arrival_date" => "2024-01-00",
     "departure_date" => "2024-01-00",
     "total_cost" => 0,
-    "stars" => 3,
+    "stars" => 2,
     "features" => [
         [
             "name" => "sauna",
@@ -31,7 +31,6 @@ $response = [
         ]
     ],
     "additional_info" => [
-        "greeting" => "Thank you for choosing Your Hotel Name",
-        "imageUrl" => "https://example.com/hotel-image.jpg"
+        "greeting" => "Enjoy your stay at The Two Sticks in a Pond",
     ]
 ];

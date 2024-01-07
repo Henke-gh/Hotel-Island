@@ -51,7 +51,7 @@ function selectAllRooms()
     return $rooms;
 }
 
-function getSpecificRoom($room)
+/* function getSpecificRoom($room)
 {
     global $db;
     try {
@@ -65,7 +65,7 @@ function getSpecificRoom($room)
         echo "Error fetching room data.";
         throw $e;
     }
-}
+} */
 
 function getRoomCost($roomID)
 {
@@ -180,6 +180,31 @@ function checkTransferCode(string $transferCode, int $totalCost)
         } else {
             return 0;
         }
+    } catch (GuzzleHttp\Exception\ClientException $e) {
+        echo $e;
+        return false;
+    }
+}
+
+function depositFunds(string $transferCode, string $userName)
+{
+    global $transferResponse;
+    $client = new Client([
+        'base_uri' => 'https://www.yrgopelag.se/centralbank',
+    ]);
+
+    try {
+        $transferResponse = $client->post('https://www.yrgopelag.se/centralbank/deposit', [
+            'form_params' => [
+                'user' => $userName,
+                'transferCode' => $transferCode,
+            ],
+            'verify' => false,
+        ]);
+
+        //$statusCode = $transferResponse->getStatusCode();
+        $responseData = json_decode($transferResponse->getBody(), true);
+        var_dump($responseData);
     } catch (GuzzleHttp\Exception\ClientException $e) {
         echo $e;
         return false;
