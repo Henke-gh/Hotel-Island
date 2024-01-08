@@ -8,7 +8,7 @@ $rooms = selectAllRooms();
 ?>
 
 <main>
-    <h1>Welcome to Hotel Island</h1>
+    <h1>Welcome to the Featherby Hotel</h1>
     <h2>Book your stay now!</h2>
     <?php if (isset($_SESSION['error'])) : ?>
         <div class="bookingErrorContainer">

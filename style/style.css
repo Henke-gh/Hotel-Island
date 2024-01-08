@@ -33,6 +33,9 @@ header h1 {
   font-family: var(--lobsterTwo);
   font-size: 3em;
 }
+header h2 {
+  color: var(--darkBlue);
+}
 
 h2,
 h3 {
@@ -82,34 +85,6 @@ footer {
   padding-bottom: 5px;
   border-top: 2px solid var(--beige);
 }
-
-/* Calendar */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-thead,
-td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
-}
-
-thead {
-  background-color: #f2f2f2;
-}
-
-tbody td {
-  background-color: #fff;
-}
-
-.selected {
-  background-color: #a7e4bc; /* Change the color for selected days */
-}
-
-/* end Calendar */
 
 .datesContainer {
   background-color: var(--darkBlue);

@@ -4,17 +4,6 @@ declare(strict_types=1);
 
 require_once __DIR__ . "/../functions/arrays.php";
 
-/*
-Here's something to start your career as a hotel manager.
-
-One function to connect to the database you want (it will return a PDO object which you then can use.)
-    For instance: $db = connect('hotel.db');
-                  $db->prepare("SELECT * FROM bookings");
-
-one function to create a guid,
-and one function to control if a guid is valid.
-*/
-
 use GuzzleHttp\Client;
 
 function connect(string $dbName): object
@@ -179,6 +168,7 @@ function checkOfferValidity()
     return $totalCost;
 }
 
+//checks whether a users transfercode is valid and returns the amount-value. If it's not set then returns 0 as amount.
 function checkTransferCode(string $transferCode, int $totalCost)
 {
     global $transferResponse;
@@ -209,6 +199,7 @@ function checkTransferCode(string $transferCode, int $totalCost)
     }
 }
 
+//deposits the users transfercode into hotel-owners account
 function depositFunds(string $transferCode)
 {
     global $transferResponse;
@@ -257,30 +248,35 @@ function isValidUuid(string $uuid): bool
     return true;
 }
 
+//checks if the user has chosen any extra features and if so adds up the cost of those and returns the sum as
+//extraCost. Also adds chosen extras/feature-names and cost to the response-array that is presented as json upon
+//booking completion.
 function checkForExtras()
 {
     global $db, $response;
     $extraCost = 0;
     if (isset($_POST['extrasOption'])) {
-        $arrayIndex = 0;
+        $response['features'] = [];
         foreach ($_POST['extrasOption'] as $option) {
             try {
 
-                $query = "SELECT * FROM extras WHERE id = '$option'";
+                $query = "SELECT cost FROM extras WHERE id = '$option'";
+                $queryName = "SELECT featureName FROM extras WHERE id = '$option'";
 
-                // Execute the query
                 $statement = $db->query($query);
+                $stmntName = $db->query($queryName);
 
-                // Fetch all rows as an associative array
-                $extras = $statement->fetchAll();
-                $response['features']['name'] = $extras[$arrayIndex]['featureName'];
-                $response['features']['cost'] = $extras[$arrayIndex]['cost'];
-                $extraCost += $extras[$arrayIndex]['cost'];
+                $extras = $statement->fetch();
+                $extrasName = $stmntName->fetch();
+                $extraCost += $extras['cost'];
+                $response['features'][] = [
+                    'name' => $extrasName['featureName'],
+                    'cost' => $extras['cost'],
+                ];
             } catch (PDOException $e) {
                 echo "Error fetching extras data.";
                 throw $e;
             }
-            $arrayIndex++;
         }
     }
 
