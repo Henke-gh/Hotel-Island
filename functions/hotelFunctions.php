@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . "/../functions/arrays.php";
+
 /*
 Here's something to start your career as a hotel manager.
 
@@ -50,6 +52,25 @@ function selectAllRooms()
         throw $e;
     }
     return $rooms;
+}
+
+function selectAllExtras()
+{
+    global $db;
+    try {
+
+        $query = "SELECT * FROM extras";
+
+        // Execute the query
+        $statement = $db->query($query);
+
+        // Fetch all rows as an associative array
+        $extras = $statement->fetchAll();
+    } catch (PDOException $e) {
+        echo "Error fetching room data.";
+        throw $e;
+    }
+    return $extras;
 }
 
 /* function getSpecificRoom($room)
@@ -238,15 +259,29 @@ function isValidUuid(string $uuid): bool
 
 function checkForExtras()
 {
+    global $db, $response;
     $extraCost = 0;
-    if (isset($_POST['breakfastClub'])) {
-        $extraCost += 2;
-    }
-    if (isset($_POST['lunchLunges'])) {
-        $extraCost += 3;
-    }
-    if (isset($_POST['poolParty'])) {
-        $extraCost += 2;
+    if (isset($_POST['extrasOption'])) {
+        $arrayIndex = 0;
+        foreach ($_POST['extrasOption'] as $option) {
+            try {
+
+                $query = "SELECT * FROM extras WHERE id = '$option'";
+
+                // Execute the query
+                $statement = $db->query($query);
+
+                // Fetch all rows as an associative array
+                $extras = $statement->fetchAll();
+                $response['features']['name'] = $extras[$arrayIndex]['featureName'];
+                $response['features']['cost'] = $extras[$arrayIndex]['cost'];
+                $extraCost += $extras[$arrayIndex]['cost'];
+            } catch (PDOException $e) {
+                echo "Error fetching extras data.";
+                throw $e;
+            }
+            $arrayIndex++;
+        }
     }
 
     return $extraCost;

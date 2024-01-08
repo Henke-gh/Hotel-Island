@@ -98,42 +98,20 @@ if (isset($_POST['searchAvailable'])) {
             <div class="addExtraPerksContainer">
                 <h2>About our specials</h2>
                 <div class="specialsInfoContainer">
-                    <div class="specialsInfo">
-                        <h3>600m Breakfast Hurdle</h3>
-                        <p>Join the Breakfast Hurdle!</p>
-                        <p>Every food-station is separated by a 50m hurdle track. Complete the course
-                            and arrive at the finish line with a full plate!
-                        </p>
-                        <p>Cost: 2$</p>
-                        <div class="addExtraPerks">
-                            <label name="breakfastClub">Add 600m Breakfast Hurdle</label>
-                            <input type="checkbox" name="breakfastClub" value="2">
+                    <?php
+                    $extras = selectAllExtras();
+                    foreach ($extras as $extra) : ?>
+                        <div class="specialsInfo">
+                            <h3><?= $extra['featureName']; ?></h3>
+                            <p><?= $extra['tagline']; ?></p>
+                            <p><?= $extra['description']; ?></p>
+                            <p><?= $extra['cost']; ?>$</p>
+                            <div class="addExtraPerks">
+                                <label for="extrasOption"><?= $extra['featureName']; ?></label>
+                                <input type="checkbox" name="extrasOption[]" value="<?= $extra['id']; ?>">
+                            </div>
                         </div>
-                    </div>
-                    <div class="specialsInfo">
-                        <h3>Lunging Lunch Lounge</h3>
-                        <p>The Lunchioneers Paradox</p>
-                        <p>Can you combine a relaxing lounge lunch with rapidfire, high tempo, lunges?
-                            We don't know, we'll leave that to you to figure out. Cramps included.
-                        </p>
-                        <p>Cost: 3$</p>
-                        <div class="addExtraPerks">
-                            <label name="lunchLunges">Lunging Lunch Lounge</label>
-                            <input type="checkbox" name="lunchLunges" value="3">
-                        </div>
-                    </div>
-                    <div class="specialsInfo">
-                        <h3>2 in 1 Pool Party</h3>
-                        <p>We heard you like pool..</p>
-                        <p>So we put a pool table in our pool so you can play pool while you're in the pool!
-                            What's not to like?
-                        </p>
-                        <p>Cost: 2$</p>
-                        <div class="addExtraPerks">
-                            <label name="poolParty">2 in 1 Pool Party</label>
-                            <input type="checkbox" name="poolParty" value="2">
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
             <div class="bookStayWrapper">

@@ -22,6 +22,7 @@ if (isset($_POST['bookRoom'])) {
         $totalCost = checkOfferValidity();
         $extraCost = checkForExtras();
         $totalCost += $extraCost;
+        die(var_dump($extraCost));
         $totalcostFromAPI = checkTransferCode($guestTransferCode, $totalCost);
         if ($totalcostFromAPI === $totalCost) {
             $response['arrival_date'] = $arrivalDate;
