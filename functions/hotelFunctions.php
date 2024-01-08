@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
 Here's something to start your career as a hotel manager.
 
@@ -11,7 +13,6 @@ one function to create a guid,
 and one function to control if a guid is valid.
 */
 
-use GuzzleHttp\RetryMiddleware;
 use GuzzleHttp\Client;
 
 function connect(string $dbName): object
@@ -174,7 +175,8 @@ function checkTransferCode(string $transferCode, int $totalCost)
         ]);
 
         //$statusCode = $transferResponse->getStatusCode();
-        $responseData = json_decode($transferResponse->getBody(), true);
+        $response = $transferResponse->getBody();
+        $responseData = json_decode((string) $response, true);
         if (isset($responseData['amount'])) {
             return $responseData['amount'];
         } else {
@@ -186,7 +188,7 @@ function checkTransferCode(string $transferCode, int $totalCost)
     }
 }
 
-function depositFunds(string $transferCode, string $userName)
+function depositFunds(string $transferCode)
 {
     global $transferResponse;
     $client = new Client([
@@ -196,15 +198,15 @@ function depositFunds(string $transferCode, string $userName)
     try {
         $transferResponse = $client->post('https://www.yrgopelag.se/centralbank/deposit', [
             'form_params' => [
-                'user' => $userName,
+                'user' => 'Henrik',
                 'transferCode' => $transferCode,
             ],
             'verify' => false,
         ]);
 
         //$statusCode = $transferResponse->getStatusCode();
-        $responseData = json_decode($transferResponse->getBody(), true);
-        var_dump($responseData);
+        /* $responseData = json_decode($transferResponse->getBody(), true);
+        var_dump($responseData); */
     } catch (GuzzleHttp\Exception\ClientException $e) {
         echo $e;
         return false;
@@ -232,4 +234,20 @@ function isValidUuid(string $uuid): bool
         return false;
     }
     return true;
+}
+
+function checkForExtras()
+{
+    $extraCost = 0;
+    if (isset($_POST['breakfastClub'])) {
+        $extraCost += 2;
+    }
+    if (isset($_POST['lunchLunges'])) {
+        $extraCost += 3;
+    }
+    if (isset($_POST['poolParty'])) {
+        $extraCost += 2;
+    }
+
+    return $extraCost;
 }

@@ -1,19 +1,6 @@
 <?php
 
-$hotelRooms = [
-    'budget' => [
-        'roomID' => 1,
-        'cost' => 5
-    ],
-    'standard' => [
-        'roomID' => 2,
-        'cost' => 10
-    ],
-    'luxury' => [
-        'roomID' => 3,
-        'cost' => 15
-    ],
-];
+declare(strict_types=1);
 
 
 //placeholder response-array to be converted to json on booking completion

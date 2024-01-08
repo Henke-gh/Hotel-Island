@@ -19,12 +19,16 @@ if (isset($_POST['bookRoom'])) {
         getNumberOfDaysBooked();
         getRoomCost($selectedRoomID);
         $totalCost = $numberOfDays * $roomCost;
+        $totalCost = checkOfferValidity();
+        $extraCost = checkForExtras();
+        $totalCost += $extraCost;
         $totalcostFromAPI = checkTransferCode($guestTransferCode, $totalCost);
         if ($totalcostFromAPI === $totalCost) {
             $response['arrival_date'] = $arrivalDate;
             $response['departure_date'] = $departureDate;
             $response['total_cost'] = $totalCost;
             insertBookingInformation();
+            depositFunds($guestTransferCode);
             $_SESSION['roomConfirmed'] = "Thank you for staying with us!";
             $_SESSION['datesBooked'] = "Check in on: " . $_SESSION['checkIn'] . " with Check out: " . $_SESSION['checkOut'];
             $_SESSION['response'] = json_encode($response);
