@@ -54,6 +54,7 @@ if (isset($_POST['searchAvailable'])) {
                         <p>Available</p>
                         <input type="radio" name="selectedRoomID" value="<?= $room['id']; ?>">
                         <label name="selectedRoomID">Select Room</label>
+                        <input type="hidden" class="roomCost" data-room-id="<?= $room['id']; ?>" value="<?= $totalCost; ?>">
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -71,6 +72,7 @@ if (isset($_POST['searchAvailable'])) {
                             <div class="addExtraPerks">
                                 <label><?= $extra['featureName']; ?></label>
                                 <input type="checkbox" name="extrasOption[]" value="<?= $extra['id']; ?>">
+                                <input type="hidden" class="extraCost" data-extra-id="<?= $extra['id']; ?>" value="<?= $extra['cost']; ?>">
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -89,11 +91,17 @@ if (isset($_POST['searchAvailable'])) {
                         <p>(Opens in new tab)</p>
                     </div>
                 </div>
-                <div class="bookStay costSummary" id="totalCost">
+                <!--  <div class="bookStay costSummary" id="totalCost">
                     <h2>Cost Breakdown:</h2>
                     <p>Room cost:</p>
                     <p>Extras:</p>
                     <p>Total cost:</p>
+                </div> -->
+                <div class="bookStay costSummary" id="totalCost">
+                    <h2>Cost Breakdown:</h2>
+                    <p>Room cost: <span id="roomCost">0$</span></p>
+                    <p>Extras: <span id="extrasCost">0$</span></p>
+                    <p>Total cost: <span id="totalCostValue">0$</span></p>
                 </div>
             </div>
         </form>
@@ -108,7 +116,8 @@ if (isset($_POST['searchAvailable'])) {
             </div>
         </form>
     <?php endif; ?>
-    <script src="/../style/bookingScript.js"></script>
 </main>
+<script src="/../style/bookingScript.js"></script>
+
 
 <?php require_once __DIR__ . "/../nav/footer.html";

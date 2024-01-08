@@ -7,7 +7,7 @@ require_once __DIR__ . "/arrays.php";
 $db = connect('hotel.sqlite');
 
 //if everything is OK and user has confirmed booking adds to database and outputs reponse.
-if (isset($_POST['bookRoom'])) {
+if (isset($_POST['bookRoom'], $_POST['selectedRoomID'])) {
     $selectedRoomID = $_POST['selectedRoomID'];
     $guestTransferCode = trim(htmlspecialchars($_POST['guestTransferCode'], ENT_QUOTES));
     $guestName = trim(htmlspecialchars($_POST['guestName'], ENT_QUOTES));
@@ -47,7 +47,7 @@ if (isset($_POST['bookRoom'])) {
         exit();
     }
 } else {
-    $_SESSION['error'] = "Your booking failed to process. Please try again.";
+    $_SESSION['error'] = "Your booking failed to process. Make sure you have selected a room and try again.";
     header('Location: /../app/booking.php');
     exit();
 }

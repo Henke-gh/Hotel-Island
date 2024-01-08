@@ -6,7 +6,7 @@ require_once __DIR__ . "/../nav/header.html";
 ?>
 
 <main>
-    <h2>Admin</h2>
+    <h2>Admin page for Featherby Hotel</h2>
 
 </main>
 
