@@ -275,6 +275,24 @@ footer a {
   margin-top: 10px;
 }
 
+.costControl {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.costControl input {
+  width: 50px;
+  padding: 0;
+  height: 18px;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.adminLogout {
+  margin-top: 5%;
+}
+
 footer {
   margin-top: 10%;
 }

@@ -91,12 +91,6 @@ if (isset($_POST['searchAvailable'])) {
                         <p>(Opens in new tab)</p>
                     </div>
                 </div>
-                <!--  <div class="bookStay costSummary" id="totalCost">
-                    <h2>Cost Breakdown:</h2>
-                    <p>Room cost:</p>
-                    <p>Extras:</p>
-                    <p>Total cost:</p>
-                </div> -->
                 <div class="bookStay costSummary" id="totalCost">
                     <h2>Cost Breakdown:</h2>
                     <p>Room cost: <span id="roomCost">0$</span></p>

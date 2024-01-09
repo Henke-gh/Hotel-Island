@@ -63,22 +63,6 @@ function selectAllExtras()
     return $extras;
 }
 
-/* function getSpecificRoom($room)
-{
-    global $db;
-    try {
-        $query = "SELECT * FROM rooms WHERE roomName = '$room'";
-
-        $statement = $db->query($query);
-
-        $selectedRoom = $statement->fetch();
-        $_SESSION['selectedRoom'] = $selectedRoom;
-    } catch (PDOException $e) {
-        echo "Error fetching room data.";
-        throw $e;
-    }
-} */
-
 function getRoomCost($roomID)
 {
     global $db, $roomCost;
@@ -216,10 +200,6 @@ function depositFunds(string $transferCode)
             ],
             'verify' => false,
         ]);
-
-        //$statusCode = $transferResponse->getStatusCode();
-        /* $responseData = json_decode($transferResponse->getBody(), true);
-        var_dump($responseData); */
     } catch (GuzzleHttp\Exception\ClientException $e) {
         echo $e;
         return false;
@@ -282,4 +262,34 @@ function checkForExtras()
     }
 
     return $extraCost;
+}
+
+//gets hotel managers account balance from yrgopelag
+function getAccountBalance(string $apikey, string $username)
+{
+    global $transferResponse;
+    $client = new Client([
+        'base_uri' => 'https://www.yrgopelag.se/centralbank',
+    ]);
+
+    try {
+        $transferResponse = $client->post('https://www.yrgopelag.se/centralbank/accountInfo', [
+            'form_params' => [
+                'user' => $username,
+                'api_key' => $apikey,
+            ],
+            'verify' => false,
+        ]);
+
+        $response = $transferResponse->getBody();
+        $responseData = json_decode((string) $response, true);
+        if (isset($responseData['credit'])) {
+            return $responseData['credit'];
+        } else {
+            return 0;
+        }
+    } catch (GuzzleHttp\Exception\ClientException $e) {
+        echo $e;
+        return false;
+    }
 }
