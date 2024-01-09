@@ -86,6 +86,10 @@ footer {
   border-top: 2px solid var(--beige);
 }
 
+footer a {
+  font-size: 0.8em;
+}
+
 .datesContainer {
   background-color: var(--darkBlue);
   padding: 15px;
@@ -261,6 +265,13 @@ footer {
 
 .linkBookingConfirmed {
   color: var(--sunsetPink);
+  margin-top: 10px;
+}
+
+.adminLoginContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   margin-top: 10px;
 }
 

@@ -17,9 +17,16 @@ CREATE TABLE IF NOT EXISTS guests (
     FOREIGN KEY (roomID) REFERENCES rooms (id)
 );
 
+CREATE TABLE IF NOT EXISTS admin (
+    id INTEGER PRIMARY KEY,
+    username TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL UNIQUE
+);
 
-
-
-INSERT into rooms (roomName, cost)
-VALUES ('Standard', 10),
-('Luxury', 15)
+CREATE TABLE IF NOT EXISTS extras (
+    id INTEGER PRIMARY KEY,
+    featureName TEXT NOT NULL UNIQUE,
+    tagline TEXT NOT NULL UNIQUE,
+    cost INTEGER,
+    description TEXT
+);
