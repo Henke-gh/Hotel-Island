@@ -6,7 +6,7 @@ if (!$_SESSION['adminLoggedIn']) {
 require_once __DIR__ . "/../functions/arrays.php";
 require_once __DIR__ . "/../functions/hotelFunctions.php";
 require_once __DIR__ . "/../nav/header.html";
-$db = connect('hotel.sqlite');
+$db = connect();
 ?>
 
 <main>

@@ -14,5 +14,6 @@ $response = [
     "features" => "No features selected.",
     "additional_info" => [
         "greeting" => "Enjoy your stay at The Featherby Hotel",
+        "game_URL" => "https://henkes-portfolio.se/ProvingGrounds/",
     ]
 ];

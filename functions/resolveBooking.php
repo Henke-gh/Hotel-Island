@@ -4,7 +4,7 @@ declare(strict_types=1);
 require_once __DIR__ . "/sessionStart.php";
 require_once __DIR__ . "/hotelFunctions.php";
 require_once __DIR__ . "/arrays.php";
-$db = connect('hotel.sqlite');
+$db = connect();
 
 //if everything is OK and user has confirmed booking adds to database and outputs reponse.
 if (isset($_POST['bookRoom'], $_POST['selectedRoomID'])) {

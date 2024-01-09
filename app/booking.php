@@ -2,7 +2,7 @@
 require_once __DIR__ . "/../functions/sessionStart.php";
 require_once __DIR__ . "/../functions/hotelFunctions.php";
 require_once __DIR__ . "/../nav/header.html";
-$db = connect('hotel.sqlite');
+$db = connect();
 
 
 //checks whether selected dates (from index.php) are available for booking.

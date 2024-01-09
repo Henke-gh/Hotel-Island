@@ -3,7 +3,7 @@ require_once __DIR__ . "/functions/sessionStart.php";
 require_once __DIR__ . "/functions/hotelFunctions.php";
 require_once __DIR__ . "/nav/header.html";
 
-$db = connect('hotel.sqlite');
+$db = connect();
 $rooms = selectAllRooms();
 ?>
 

@@ -6,7 +6,8 @@ require_once __DIR__ . "/../functions/arrays.php";
 
 use GuzzleHttp\Client;
 
-function connect(string $dbName): object
+//replace hotel.sqlite with the name of your database.
+function connect(): object
 {
     $dbPath = __DIR__ . '/../' . 'hotel.sqlite';
     $db = "sqlite:$dbPath";

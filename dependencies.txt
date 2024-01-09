@@ -1,3 +1,4 @@
-Guzzle
+This project uses Guzzle and phpdotenv. Install using the terminal commands below.
+
 composer require guzzlehttp/guzzle
 composer require vlucas phpdotenv
