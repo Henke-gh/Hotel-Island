@@ -32,7 +32,7 @@ $extras = selectAllExtras();
         <?php foreach ($rooms as $room) : ?>
             <form method="post" action="/../functions/costUpdates.php">
                 <div class="costControl">
-                    <p><?= "ID: " . $room['id'] . " - " . $room['roomName'] . ": " . $room['cost'] . "$"; ?></p>
+                    <p><?= $room['roomName'] . ": " . $room['cost'] . "$"; ?></p>
                     <input type="number" name="newRoomCost">
                     <button type="submit" name="updateRoomCost" value="<?= $room['id']; ?>">Update Cost</button>
                 </div>

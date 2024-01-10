@@ -265,10 +265,10 @@ function isValidUuid(string $uuid): bool
 
 //checks if the user has chosen any extra features and if so adds up the cost of those and returns the sum as
 //extraCost. Also adds chosen extras/feature-names and cost to the response-array that is presented as json upon
-//booking completion.
+//booking completion. Used in resolveBooking.php.
 function checkForExtras()
 {
-    global $db, $response;
+    global $db, $response, $insertExtras;
     $extraCost = 0;
     if (isset($_POST['extrasOption'])) {
         $response['features'] = [];
@@ -287,6 +287,10 @@ function checkForExtras()
                 $response['features'][] = [
                     'name' => $extrasName['featureName'],
                     'cost' => $extras['cost'],
+                ];
+                //A slightly roundabout way to include names of selected extras into the guest-table
+                $insertExtras[] = [
+                    $extrasName['featureName']
                 ];
             } catch (PDOException $e) {
                 echo "Error fetching extras data.";

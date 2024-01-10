@@ -1,16 +1,22 @@
-WHY NOT A GIF HERE? TO SET THE MOOD.
+# Fawkes Island
 
-# Island name
+It's surrounded by water. Also a reference to someones fiery bird.
 
-Some text about your lovely island
+# The Featherby Hotel
 
-# Hotel name
+A place where dreams come true. In your sleep, when you dream. They're not true the morning after.
 
-Why not add some info about the hotel of your dreams?
+# About the project
+
+The Hotel Island repo is an assignment in which we, students of Yrgo's 2023 web dev higher vocational training, were given
+the task of building a small hotel booking website. The project reqs included handling booking information, databases and
+communicating with an API in order to confirm and validate payment information.
 
 # Instructions
 
-If your project requires some installation or similar, please inform your user 'bout it. For instance, if you want a more decent indentation of your .php files, you could edit [.editorconfig]('/.editorconfig').
+This project uses an SQlite database and a couple of packages (Guzzle and phpdotenv). Information about the database
+structure can be found in the tableCreates.txt and install instructions for said packages are included in the
+decpendencies.txt file in the repository.
 
 # Code review
 

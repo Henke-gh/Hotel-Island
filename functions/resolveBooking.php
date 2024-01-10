@@ -27,6 +27,7 @@ if (isset($_POST['bookRoom'], $_POST['selectedRoomID'])) {
             $response['arrival_date'] = $arrivalDate;
             $response['departure_date'] = $departureDate;
             $response['total_cost'] = $totalCost;
+            $extras = json_encode($insertExtras);
             insertBookingInformation();
             depositFunds($guestTransferCode);
             $_SESSION['roomConfirmed'] = "Thank you for staying with us!";
