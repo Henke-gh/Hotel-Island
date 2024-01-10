@@ -80,6 +80,40 @@ function getRoomCost($roomID)
     return $roomCost;
 }
 
+//updates Room Cost in Hotel-database
+function updateRoomCost($roomID, $newRoomCost)
+{
+    global $db, $roomCost, $newRoomCost;
+    try {
+        $query = "UPDATE rooms SET cost = :newcost WHERE id = :roomID";
+
+        $statement = $db->query($query);
+        $statement->bindParam(':newcost', $newRoomCost);
+        $statement->bindParam(':roomID', $roomID);
+        $statement->execute();
+    } catch (PDOException $e) {
+        echo "Error fetching room data.";
+        throw $e;
+    }
+}
+
+//updates Extras (features) Cost in hotel-db.
+function updateExtrasCost($extraID, $newExtraCost)
+{
+    global $db, $extraID, $newExtraCost;
+    try {
+        $query = "UPDATE extras SET cost = :newcost WHERE id = :extraID";
+
+        $statement = $db->query($query);
+        $statement->bindParam(':newcost', $newExtraCost);
+        $statement->bindParam(':extraID', $extraID);
+        $statement->execute();
+    } catch (PDOException $e) {
+        echo "Error fetching room data.";
+        throw $e;
+    }
+}
+
 //Checks room availability in hotel.sqlite
 function checkRoomAvailability($roomID)
 {

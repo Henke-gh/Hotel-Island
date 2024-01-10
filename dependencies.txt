@@ -1,4 +1,5 @@
 This project uses Guzzle and phpdotenv. Install using the terminal commands below.
+Phpdotenv is currently only used for getting account info on the admin page.
 
 composer require guzzlehttp/guzzle
 composer require vlucas phpdotenv
