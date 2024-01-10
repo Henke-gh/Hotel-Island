@@ -16,7 +16,7 @@ communicating with an API in order to confirm and validate payment information.
 
 This project uses an SQlite database and a couple of packages (Guzzle and phpdotenv). Information about the database
 structure can be found in the tableCreates.txt and install instructions for said packages are included in the
-decpendencies.txt file in the repository.
+dependencies.txt file in the repository.
 
 # Code review
 
