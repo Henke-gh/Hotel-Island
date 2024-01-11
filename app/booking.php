@@ -12,6 +12,10 @@ if (isset($_POST['searchAvailable'])) {
     $_SESSION['dateReservation'] = "Your dates: " . $_SESSION['checkIn'] . " - " . $_SESSION['checkOut'];
 
     getNumberOfDaysBooked();
+    if ($numberOfDays < 1) {
+        $_SESSION['error'] = "Cannot book less than 1 full day.";
+        header('Location: /../index.php');
+    }
 
     $rooms = selectAllRooms();
     $availableRooms = [];
@@ -28,13 +32,13 @@ if (isset($_POST['searchAvailable'])) {
 ?>
 
 <main>
-    <h1>Book your stay</h1>
     <?php if (isset($_SESSION['error'])) : ?>
         <div class="bookingErrorContainer">
             <p><?= $_SESSION['error']; ?></p>
         </div>
     <?php endif;
     unset($_SESSION['error']); ?>
+    <h1>Book your stay</h1>
     <?php if (isset($_SESSION['dateReservation'])) : ?>
         <h3><?= $_SESSION['dateReservation']; ?></h3>
     <?php endif;

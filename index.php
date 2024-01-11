@@ -8,17 +8,17 @@ $rooms = selectAllRooms();
 ?>
 
 <main>
+    <?php if (isset($_SESSION['error'])) : ?>
+        <div class="bookingErrorContainer">
+            <p><?= $_SESSION['error']; ?></p>
+        </div>
+    <?php endif;
+    unset($_SESSION['error']); ?>
     <section class="welcome">
         <div class="welcomeMsg">
             <h1>Welcome to the Featherby Hotel</h1>
             <h2> &#9734; &#9734; &#9734;</h2>
             <h2>Book your stay now!</h2>
-            <?php if (isset($_SESSION['error'])) : ?>
-                <div class="bookingErrorContainer">
-                    <p><?= $_SESSION['error']; ?></p>
-                </div>
-            <?php endif;
-            unset($_SESSION['error']); ?>
             <p>- Search dates to see available rooms -</p>
         </div>
         <form method="post" action="/app/booking.php">
