@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS rooms (
     id INTEGER PRIMARY KEY,
     roomName TEXT NOT NULL UNIQUE,
     cost INTEGER,
-    description TEXT
+    description TEXT,
+    imageURL TEXT
 );
 
 CREATE TABLE IF NOT EXISTS guests (

@@ -47,7 +47,7 @@ if (isset($_POST['searchAvailable'])) {
                     $totalCost = checkOfferValidity(); ?>
                     <div class="room">
                         <h2><?= $room['roomName']; ?></h2>
-                        <img src="/images/room_temp.png">
+                        <img src="/<?= $room['imageURL']; ?>">
                         <p><?= $room['description']; ?></p>
                         <p>Price per day: <?= $room['cost']; ?>$</p>
                         <p>Total cost: <?= $totalCost; ?>$</p>
@@ -106,7 +106,8 @@ if (isset($_POST['searchAvailable'])) {
             <div class="datesContainer">
                 <input class="datePicker" type="date" name="checkIn" min="2024-01-01" max="2024-01-31" required>
                 <input class="datePicker" type="date" name="checkOut" min="2024-01-01" max="2024-01-31" required>
-                <button class="dateSelect" type="submit" name="searchAvailable">Search</button>
+                <button class="dateSelect" type="submit" name="searchAvailable">Search
+                    <img class="searchImg" src="/images/search.svg"></button>
             </div>
         </form>
     <?php endif; ?>
