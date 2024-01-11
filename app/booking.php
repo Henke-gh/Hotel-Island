@@ -39,19 +39,29 @@ if (isset($_POST['searchAvailable'])) {
         <h3><?= $_SESSION['dateReservation']; ?></h3>
     <?php endif;
     if (!empty($availableRooms)) : ?>
-        <h1>Available Rooms</h1>
+        <h3>Select other dates.</h3>
+        <form method="post" action="/../app/booking.php">
+            <div class="datesContainer">
+                <input class="datePicker" type="date" name="checkIn" min="2024-01-01" max="2024-01-31" required>
+                <input class="datePicker" type="date" name="checkOut" min="2024-01-01" max="2024-01-31" required>
+                <button class="dateSelect" type="submit" name="searchAvailable">Search
+                    <img class="searchImg" src="/images/search.svg"></button>
+            </div>
+        </form>
+        <h2>Available Rooms</h2>
         <form method="post" action="/../functions/resolveBooking.php">
             <div class="displayRooms">
                 <?php foreach ($availableRooms as $room) :
                     $totalCost = $numberOfDays * $room['cost'];
                     $totalCost = checkOfferValidity(); ?>
                     <div class="room">
+                        <section>
+                            <img src="/<?= $room['imageURL']; ?>">
+                        </section>
                         <h2><?= $room['roomName']; ?></h2>
-                        <img src="/<?= $room['imageURL']; ?>">
                         <p><?= $room['description']; ?></p>
                         <p>Price per day: <?= $room['cost']; ?>$</p>
                         <p>Total cost: <?= $totalCost; ?>$</p>
-                        <p>Available</p>
                         <input type="radio" name="selectedRoomID" value="<?= $room['id']; ?>">
                         <label name="selectedRoomID">Select Room</label>
                         <input type="hidden" class="roomCost" data-room-id="<?= $room['id']; ?>" value="<?= $totalCost; ?>">
