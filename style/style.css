@@ -336,6 +336,7 @@ section .datesContainer {
   padding: 5px;
   color: var(--darkSlate);
   text-align: center;
+  margin: 0 auto;
 }
 
 .getTransferCode a {
