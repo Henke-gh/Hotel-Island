@@ -32,10 +32,8 @@ function selectAllRooms()
 
         $query = "SELECT * FROM rooms";
 
-        // Execute the query
         $statement = $db->query($query);
 
-        // Fetch all rows as an associative array
         $rooms = $statement->fetchAll();
     } catch (PDOException $e) {
         echo "Error fetching room data.";
@@ -51,10 +49,8 @@ function selectAllExtras()
 
         $query = "SELECT * FROM extras";
 
-        // Execute the query
         $statement = $db->query($query);
 
-        // Fetch all rows as an associative array
         $extras = $statement->fetchAll();
     } catch (PDOException $e) {
         echo "Error fetching room data.";
@@ -289,6 +285,7 @@ function checkForExtras()
                     'cost' => $extras['cost'],
                 ];
                 //A slightly roundabout way to include names of selected extras into the guest-table
+                //Creates an array of selected extras which is later json encoded and put in the guest table.
                 $insertExtras[] = [
                     $extrasName['featureName']
                 ];
