@@ -22,13 +22,22 @@ dependencies.txt file in the repository.
 
 # Code review
 
-1. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
-2. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
-3. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
-4. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
-5. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
-6. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
-7. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
-8. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
-9. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
-10. example.js:10-15 - Remember to think about X and this could be refactored using the amazing Y function.
+1. tableCreates.txt - you could limit the amount of letters allowed when creating tables. So that unwanted scripts would be prevented from entering your database. 
+
+2. style.css - It could use some comments and structure. Maybe naming different sections the same as the containers of your html?
+
+3. hotelFunctions.php, 44-77 - The functions updateExtraCost and updateRoomCost could be one single function to make the code more readable.
+
+4. loginVerify, 17 - You are assuming that the connection to you database will work, it would be better to catch it if it loses connection. So when you get errors, you'll know right away that the connection has been lost. 
+
+5. booking.php, 37 - You could use some htmlspecialchars to sanatize your input.
+
+6. style.css - To make the code more readable you could get rid of the "clutter" when styling. Meaning, if there's multiple parts that have the same color, you could collect them to a single style, rather then re-writing it over and over again.
+
+7. Not a specific file, but your class-names and function-names could use an improvement overall to decrease mix-ups and such. 
+
+8. Regarding your actual website you could think about the responsivity. Example, the three rooms available become unreadable and shrinkes in mobile-mode.
+
+9. hotelFunctions.php, use prepare statements to sanatize your database. You have done it on mainly all places as i can see, but missed 1 or 2.
+
+10. Index.php, 33-58 - Instead of writing the rooms out in html, you could loop them to make up for the space.
