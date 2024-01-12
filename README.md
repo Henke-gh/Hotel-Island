@@ -6,6 +6,8 @@ It's surrounded by water. Also a reference to someones fiery bird.
 
 A place where dreams come true. In your sleep, when you dream. They're not true the morning after.
 
+Visit the hotel at https://henkes-portfolio.se/Featherby/
+
 # About the project
 
 The Hotel Island repo is an assignment in which we, students of Yrgo's 2023 web dev higher vocational training, were given
